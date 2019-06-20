@@ -43,6 +43,10 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.get("/update", (req, res) => {
+  res.render("update_page");
+});
+
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
