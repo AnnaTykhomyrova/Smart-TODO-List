@@ -13,10 +13,7 @@ module.exports = (knex) => {
         res.json(results);
     });
   });
-  router.get("/update", (req, res) => {
-    res.render("update_page");
-  });
-  
+
   return router;
 }
 
