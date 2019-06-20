@@ -34,15 +34,16 @@ app.use("/styles", sass({
   outputStyle: 'expanded'
 }));
 app.use(express.static("public"));
-
-// Mount all resource routes
-app.use("/api/users", usersRoutes(knex));
 app.use(cookieSession({
   name: "session",
   keys: ["key1", "key2"],
   
   maxAge: 24 * 60 * 60 * 1000
 }));
+
+// Mount all resource routes
+app.use("/api/users", usersRoutes(knex));
+
 // Home page
 app.get("/", (req, res) => {
   res.render("index");
