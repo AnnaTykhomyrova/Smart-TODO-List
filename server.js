@@ -39,10 +39,6 @@ app.use(express.static("public"));
 app.use("/api/users", usersRoutes(knex));
 
 // Home page
-app.get("/login", (req, res) => {
-  res.render("login_page");
-});
-
 app.get("/", (req, res) => {
   res.render("index");
 });
