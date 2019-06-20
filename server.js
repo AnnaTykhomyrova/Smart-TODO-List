@@ -47,6 +47,10 @@ app.get("/update", (req, res) => {
   res.render("update_page");
 });
 
+app.get("/login", (req, res) => {
+  res.render("login_page");
+});
+
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
