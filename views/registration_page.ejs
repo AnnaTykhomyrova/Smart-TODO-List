@@ -18,7 +18,12 @@
         <div class="col-sm-6 col-sm-offset-3">
 
             <h1 id="signup"><span class="fa fa-sign-in"></span> Sign Up</h1>
-           <hr>
+            <% if(locals.error){ %>
+                <p style='color:red'>
+                    <%= locals.error%>
+                </p>
+                <% } %>
+            <hr>
             <form action="/register" method="post">
                 <div class="form-group">
                     <label id="username"> Enter your username</label>
