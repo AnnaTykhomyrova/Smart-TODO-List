@@ -84,7 +84,7 @@ app.post("/login", (req, res) => {
     .where('username', req.body.username)
     .then((response) => {
       if (response.length == 0){
-        res.render("login_page").alert('Error: not found')
+        res.render("login_page")
       }
       else if (response[0].password !== req.body.password){
         res.redirect("/login");
@@ -102,10 +102,22 @@ app.get("/register", (req, res) => {
 });
 
 app.post ("/register", (req, res)  => {
-  knex('users').insert({username: req.body.username, password: req.body.password}).then(()=> console.log("inserted!"))
-  .catch((err)=> {console.log(err); throw err})
-  // console.log(req.body.username);
-  res.redirect("/")
+  knex('users')
+    .select('username')
+    .where('username', req.body.username)
+    .then((response)=>{
+      if (!response){
+        throw new Error('User with this name already exists');
+      }
+      return knex('users')
+        .insert({username: req.body.username, password: req.body.password})
+        .then((response) => {
+          res.redirect("/")
+        })
+    })
+    .catch((err) => {
+      res.render('registration_page', {error: err.message})
+    })
 });
 
 
