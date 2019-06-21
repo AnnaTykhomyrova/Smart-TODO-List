@@ -47,15 +47,19 @@ app.use(cookieSession({
 
 // User home page
 app.get("/", (req, res) => {
-    knex('users')
+  if (req.session.user_id) {
+        knex('users')
     .select()
-    .where('username', req.body.username)
+    .where('id', req.session.user_id)
     .then((response) => {
     let templateVars = {
-      username: username
+      username: response.username
     };
   res.render("home_page", templateVars);
 });
+  } else {
+
+  }
 });
 
 // When user click button logout
