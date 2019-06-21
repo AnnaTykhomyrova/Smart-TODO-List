@@ -38,7 +38,7 @@ app.use(express.static("public"));
 // Mount all resource routes
 // app.use("/api/users", usersRoutes(knex));
 
-// Home page
+// User home page
 app.get("/", (req, res) => {
   var username;
    knex.select('username').table('user')
@@ -80,9 +80,11 @@ app.get("/register", (req, res) => {
 });
 
 app.post ("/register", (req, res)  => {
-  res.redirect("/")
+  res.redirect("/home")
 });
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
+
