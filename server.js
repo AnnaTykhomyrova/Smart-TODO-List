@@ -47,7 +47,6 @@ app.get("/", (req, res) => {
     let templateVars = {
     username: username[0].username
   };
-   console.log(response);
   res.render("home_page", templateVars);
   });
 });
@@ -59,7 +58,17 @@ app.post('/logout', (req, res) => {
 
 // When user click button update
 app.post('/update', (req, res) => {
-  res.render("update_page");
+  var username;
+  var password;
+  knex.select('username').from('users').where('id', 1)
+  .then(response => {
+    username = response;
+    console.log(response);
+    let templateVars = {
+      username: username[0].username
+    };
+  res.render("update_page", templateVars);
+  });
 });
 
 app.get("/update", (req, res) => {
