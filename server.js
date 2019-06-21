@@ -48,30 +48,24 @@ app.use(cookieSession({
 // User home page
 app.get("/", (req, res) => {
   if (req.session.user_id) {
-        knex('users')
-    .select()
-    .where('id', req.session.user_id)
-    .then((response) => {
     let templateVars = {
-      username: response.username
+      username: req.session.username
     };
-  res.render("home_page", templateVars);
-});
-  } else {
-
+     return res.render("home_page", templateVars);
   }
+
+  res.redirect('/login')
 });
 
 // When user click button logout
 app.post('/logout', (req, res) => {
+  req.session = {};
   res.redirect('/login');
 });
 
 // When user click button update
 app.post('/update', (req, res) => {
-  var username;
-  var password;
-    var username = req.body.username;
+    var username = req.session.username;
     let templateVars = {
       username: username
     };
@@ -81,6 +75,7 @@ app.post('/update', (req, res) => {
 app.get("/update", (req, res) => {
   res.render("update_page");
 });
+
 
 app.get("/login", (req, res) => {
   res.render("login_page");
@@ -99,7 +94,9 @@ app.post("/login", (req, res) => {
         res.redirect("/login");
       }
       else if (response[0].password === req.body.passwords){
-      req.session.user_id = response.id
+      req.session.user_id = response[0].id;
+      req.session.username = response[0].username;
+
       res.redirect("/");
       }
     })
@@ -120,7 +117,10 @@ app.post ("/register", (req, res)  => {
       }
       return knex('users')
         .insert({username: req.body.username, password: req.body.password})
+        .then(() => knex('users').select().where('username', req.body.username))
         .then((response) => {
+          req.session.user_id = response[0].id;
+          req.session.username = response[0].username;
           res.redirect("/")
         })
     })
