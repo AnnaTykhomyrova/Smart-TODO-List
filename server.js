@@ -74,6 +74,7 @@ app.post("/login", (req, res) => {
   res.redirect("/");
 });
 
+
 app.get("/register", (req, res) => {
   res.render("registration_page")
 });
