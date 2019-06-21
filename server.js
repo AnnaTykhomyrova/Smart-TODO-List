@@ -71,10 +71,17 @@ app.get("/login", (req, res) => {
 
 
 app.post("/login", (req, res) => {
-  res.render("login_page");
+  res.redirect("/");
 });
 
 
+app.get("/register", (req, res) => {
+  res.render("registration_page")
+});
+
+app.post ("/register", (req, res)  => {
+  res.redirect("/")
+});
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
