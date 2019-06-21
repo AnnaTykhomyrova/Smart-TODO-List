@@ -83,8 +83,11 @@ app.post("/login", (req, res) => {
     .select()
     .where('username', req.body.username)
     .then((response) => {
+      console.log(req.body.username);
+    if(req.body.username.lengthrs > 0){
+      console.log('got itefewfiuhefoubweobojuboeujbdeojubeojubfojubeoujbfoeuboeufboeub');
       if (response.length === 0){
-        throw new Error('Please enter a username');
+        throw new Error('User doesn\'t exist');
       }
       else if (response[0].password !== req.body.password){
         throw new Error('Invalid username or password');
@@ -93,10 +96,14 @@ app.post("/login", (req, res) => {
         req.session.user_id = response.id
         res.redirect("/");
       }
+    } else {
+      throw new Error('Enter your username')
+    }
     }).catch((err) => {
       res.render('login_page', {error: err.message})
 });
-})
+});
+
 app.get("/register", (req, res) => {
   res.render("registration_page")
 });
@@ -106,7 +113,7 @@ app.post ("/register", (req, res)  => {
     .select('username')
     .where('username', req.body.username)
     .then((response)=>{
-      if (response){
+      if (response.length > 0){
         throw new Error('User with this name already exists');
       } else {
         return knex('users')
@@ -122,6 +129,6 @@ app.post ("/register", (req, res)  => {
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
-})
+});
 
 
