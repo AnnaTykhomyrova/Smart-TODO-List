@@ -70,9 +70,13 @@ app.get("/login", (req, res) => {
 });
 
 
-app.prependOnceListener("/login", (req, res) => {
-  res.redirect("/login");
+app.post("/login", (req, res) => {
+  res.render("login_page");
 });
+
+
+
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
+
