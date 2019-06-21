@@ -1,8 +1,14 @@
-body {
+.home-button {
+  display: flex;
+  justify-content: flex-end;
+}
 
-        display: flex;
-        justify-content: space-between;
-        margin: auto;
+.forms-container {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+}
 
-  }
-  
+label {
+  display: block;
+}
