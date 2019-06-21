@@ -93,10 +93,9 @@ app.post("/login", (req, res) => {
       else if (response[0].password !== req.body.password){
         res.redirect("/login");
       }
-      else if (response[0].password === req.body.passwords){
+      else if (response[0].password === req.body.password){
       req.session.user_id = response[0].id;
       req.session.username = response[0].username;
-
       res.redirect("/");
       }
     })
@@ -104,7 +103,7 @@ app.post("/login", (req, res) => {
 
 
 app.get("/register", (req, res) => {
-  res.render("registration_page")
+  res.render("registration_page");
 });
 
 app.post ("/register", (req, res)  => {
