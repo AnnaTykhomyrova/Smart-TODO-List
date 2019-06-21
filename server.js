@@ -47,15 +47,15 @@ app.use(cookieSession({
 
 // User home page
 app.get("/", (req, res) => {
-  var username;
-  knex.select('username').from('users').where('id', 1)
-  .then(response => {
-    username = response;
+    knex('users')
+    .select()
+    .where('username', req.body.username)
+    .then((response) => {
     let templateVars = {
-    username: "bob"
-  };
+      username: username
+    };
   res.render("home_page", templateVars);
-  });
+});
 });
 
 // When user click button logout
@@ -67,16 +67,11 @@ app.post('/logout', (req, res) => {
 app.post('/update', (req, res) => {
   var username;
   var password;
-  knex('users')
-    .select()
-    .where('username', req.body.username)
-  .then(response => {
-    username = req.body.username;
+    var username = req.body.username;
     let templateVars = {
       username: username
     };
   res.render("update_page", templateVars);
-  });
 });
 
 app.get("/update", (req, res) => {
