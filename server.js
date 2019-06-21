@@ -83,15 +83,16 @@ app.post("/login", (req, res) => {
     .select()
     .where('username', req.body.username)
     .then((response) => {
-      if (response.length == 0){
+      console.log(response);
+      if (response.length === 0){
         res.render("login_page")
       }
       else if (response[0].password !== req.body.password){
         res.redirect("/login");
       }
-      else if (response[0].password === req.body.passwords){
-      req.session.user_id = response.id
-      res.redirect("/");
+      else if (response[0].password === req.body.password){
+        req.session.user_id = response.id
+        res.redirect("/");
       }
     })
 });
