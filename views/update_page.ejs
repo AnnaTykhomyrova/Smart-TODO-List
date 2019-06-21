@@ -8,8 +8,14 @@
       <header>
             <nav id="nav-bar">
                     <h1 class="header">ToDizzle</h1>
-                    <button id="home-button"><a href="/">
-                      <i class="fa fa-pencil-square-o"></i> Go ~/ </button></a>
+                     <div class='buttons-logout-update'>
+        <form method="POST" action="/logout">
+          <button  type="submit" id='logout-button' class="btn btn-primary">logout</button>
+        </form>
+        <form method="POST" action="/">
+          <button type="submit" id='home-button' class="btn btn-primary">Go ~/</button>
+        </form>
+      </div>
                   </nav>
       </header>
       <body>
