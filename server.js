@@ -41,14 +41,15 @@ app.use(express.static("public"));
 // User home page
 app.get("/", (req, res) => {
   var username;
-   knex.select('username').table('user')
-   .then(response => {
-     username = response;
-   });
-  let templateVars = {
-    username: username
+  knex.select('username').from('users').where('id', 1)
+  .then(response => {
+    username = response;
+    let templateVars = {
+    username: username[0].username
   };
+   console.log(response);
   res.render("home_page", templateVars);
+  });
 });
 
 // When user click button logout

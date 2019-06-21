@@ -12,8 +12,9 @@
 
   </head>
   <body>
+    <% include partials/_header %>
     <div class='user-profile-container'>
-      <h3 class="username">Logged as ${username}</h3>
+      <h3 class="username">Logged as <%= username %></h3>
       <div class='buttons-logout-update'>
         <form method="POST" action="/logout">
           <button  type="submit" id='logout-button' class="btn btn-primary">logout</button>
@@ -24,7 +25,7 @@
       </div>
     </div>
     <div class="user-list">
-      <h2>${username}\'s list</h2>
+      <h2><%= username %> 's list</h2>
       <form method="POST" action="/">
         <input type="text" placeholder="Search something" style="width: 300px">&nbsp;&nbsp;
         <button type="submit">Search</button>
