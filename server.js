@@ -91,8 +91,8 @@ app.post("/login", (req, res) => {
         throw new Error('Invalid username or password');
       }
       else if (response[0].password === req.body.password){
-        req.session.user_id = response.id
-        res.redirect("/");
+      req.session.user_id = response.id
+      res.redirect("/");
       }
     } else {
       throw new Error('Enter your username')
