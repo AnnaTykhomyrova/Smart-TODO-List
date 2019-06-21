@@ -37,7 +37,7 @@ app.use(express.static("public"));
 app.use(cookieSession({
   name: "session",
   keys: ["key1", "key2"],
-  
+
   maxAge: 24 * 60 * 60 * 1000
 }));
 
@@ -67,12 +67,13 @@ app.post('/logout', (req, res) => {
 app.post('/update', (req, res) => {
   var username;
   var password;
-  knex.select('username').from('users').where('id', 1)
+  knex('users')
+    .select()
+    .where('username', req.body.username)
   .then(response => {
-    username = response;
-    console.log(response);
+    username = req.body.username;
     let templateVars = {
-      username: username[0].username
+      username: username
     };
   res.render("update_page", templateVars);
   });
