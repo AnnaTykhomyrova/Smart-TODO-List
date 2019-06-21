@@ -38,9 +38,35 @@ app.use(express.static("public"));
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
 
-// Home page
+// User home page
 app.get("/", (req, res) => {
-  res.render("index");
+  var username;
+   knex.select('username').table('user')
+   .then(response => {
+     username = response;
+   });
+  let templateVars = {
+    username: username
+  };
+  res.render("home_page", templateVars);
+});
+
+// When user click button logout
+app.post('/logout', (req, res) => {
+  res.redirect('/login');
+});
+
+// When user click button update
+app.post('/update', (req, res) => {
+  res.render("update_page");
+});
+
+app.get("/update", (req, res) => {
+  res.render("update_page");
+});
+
+app.get("/login", (req, res) => {
+  res.render("login_page");
 });
 
 app.get("/update", (req, res) => {

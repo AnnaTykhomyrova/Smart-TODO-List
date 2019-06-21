@@ -1,0 +1,16 @@
+.user-profile-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.user-list {
+  text-align: center;
+
+}
+
+.categories {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
