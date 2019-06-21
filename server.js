@@ -61,6 +61,7 @@ app.get("/", (req, res) => {
 
 // When user click button logout
 app.post('/logout', (req, res) => {
+  req.session.user_id = null;
   res.redirect('/login');
 });
 
@@ -107,20 +108,19 @@ app.post ("/register", (req, res)  => {
     .select('username')
     .where('username', req.body.username)
     .then((response)=>{
-      if (!response){
+      if (response){
         throw new Error('User with this name already exists');
-      }
-      return knex('users')
+      } else {
+        return knex('users')
         .insert({username: req.body.username, password: req.body.password})
         .then((response) => {
-          res.redirect("/")
-        })
+        res.redirect("/")
     })
-    .catch((err) => {
-      res.render('registration_page', {error: err.message})
-    })
+  }
+}).catch((err) => {
+  res.render('registration_page', {error: err.message})
 });
-
+});
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
