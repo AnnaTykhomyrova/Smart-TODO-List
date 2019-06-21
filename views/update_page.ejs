@@ -6,15 +6,12 @@
          <link rel="stylesheet" href="/styles/update-page.scss">
      </head>
       <header>
+      <%include partials/_header%>
       </header>
       <body>
-      <%include partials/_header%>
       <form method="GET" action="/">
           <button type="submit" id='home-button' class="btn btn-primary">Go ~/</button>
         </form>
-          <div class = "avatar-container">
-              <img class="user-avatar"></img>
-              </div>
                 <form method="POST" action=""><input id="update-username" type="text"
                   placeholder="Update Username"  name="username-update"><button id="update" class="btn-outline-dark btn-md">Update</button></input> </form>
                   <form method="POST" action=""><input id="update-password" type="text"
