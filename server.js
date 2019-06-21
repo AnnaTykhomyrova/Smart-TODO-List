@@ -79,7 +79,18 @@ app.get("/login", (req, res) => {
 
 
 app.post("/login", (req, res) => {
-  res.redirect("/");
+  knex('users')
+    .select()
+    .where('username', req.body.username)
+    .then((response) => {
+      if (!response){
+        res.render("login_page").alert('Error: not found')
+      }
+      else if (response.password === req.body.passwords){
+      req.session.user_id = response.id
+      res.redirect("/");
+      }
+    })
 });
 
 
