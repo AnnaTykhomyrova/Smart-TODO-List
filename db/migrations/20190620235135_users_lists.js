@@ -2,10 +2,7 @@ exports.up = function(knex, Promise) {
     return Promise.all([
       knex.schema.createTable('users_lists', function(table){
         table.increments('id');
-        table 
-        .foreign('id')
-        .references('id')
-        .inTable('users');
+      table.integer('user_id').references('id').inTable('users');
       })
     ])
   };
