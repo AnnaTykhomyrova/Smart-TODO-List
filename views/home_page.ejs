@@ -4,26 +4,37 @@
     <title>Home Page</title>
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="./styles/home_page.css"  type="text/css">
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
-    <% include partials/_header %>
+
   </head>
   <body>
-    <h2>${username}\'s list</h2>
-    <form method="POST" action="/">
-      <input type="text" placeholder="Search something" style="width: 300px">&nbsp;&nbsp;
-      <button type="submit">Search</button>
-    </form>
+    <div class='user-profile-container'>
+      <h3 class="username">Logged as ${username}</h3>
+      <div class='buttons-logout-update'>
+        <form method="POST" action="/logout">
+          <button  type="submit" id='logout-button' class="btn btn-primary">logout</button>
+        </form>
+        <form method="POST" action="/update">
+          <button type="submit" id='update-button' class="btn btn-primary">update</button>
+        </form>
+      </div>
+    </div>
+    <div class="user-list">
+      <h2>${username}\'s list</h2>
+      <form method="POST" action="/">
+        <input type="text" placeholder="Search something" style="width: 300px">&nbsp;&nbsp;
+        <button type="submit">Search</button>
+      </form>
+  </div>
+  <div class="categories">
     <h3>Books</h3>
-    <hr>
     <h3>Film / Series</h3>
-    <hr>
     <h3>Restaurants</h3>
-    <hr>
     <h3>Products</h3>
-    <hr>
+  </div>
   </body>
 </html>
