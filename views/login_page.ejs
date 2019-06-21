@@ -13,6 +13,11 @@
         <div class="container">
             <div class="col-sm-6 col-sm-offset-3">
                 <h1><span class="fa fa-sign-in"></span><span id="login-title">Login </span></h1>
+                <% if(locals.error){ %>
+                <p style='color:red'>
+                    <%= locals.error%>
+                </p>
+                <% } %>
                 <hr>
                 <form action="/login" method="post">
                     <div class="form-group"><label id="username">Username</label><input type="text" class="form-control"

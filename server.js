@@ -83,18 +83,18 @@ app.post("/login", (req, res) => {
     .select()
     .where('username', req.body.username)
     .then((response) => {
-      console.log(response);
       if (response.length === 0){
-        res.render("login_page")
+        throw new Error('Please enter a username');
       }
       else if (response[0].password !== req.body.password){
-        res.redirect("/login");
+        throw new Error('Invalid username or password');
       }
       else if (response[0].password === req.body.password){
         req.session.user_id = response.id
         res.redirect("/");
       }
-    })
+    }).catch((err) => {
+      res.render('login_page', {error: err.message})
 });
 
 app.get("/register", (req, res) => {
