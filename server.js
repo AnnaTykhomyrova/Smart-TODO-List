@@ -8,7 +8,7 @@ const express     = require("express");
 const bodyParser  = require("body-parser");
 const sass        = require("node-sass-middleware");
 const app         = express();
-
+const cookieSession = require("cookie-session");
 const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
@@ -34,6 +34,13 @@ app.use("/styles", sass({
   outputStyle: 'expanded'
 }));
 app.use(express.static("public"));
+app.use(cookieSession({
+  name: "session",
+  keys: ["key1", "key2"],
+  
+  maxAge: 24 * 60 * 60 * 1000
+}));
+
 
 // Mount all resource routes
 // app.use("/api/users", usersRoutes(knex));
@@ -41,7 +48,7 @@ app.use(express.static("public"));
 // User home page
 app.get("/", (req, res) => {
   var username;
-  knex.select('username').from('users').where('id', 1)
+  knex.select('username').from('users').where('id', 2)
   .then(response => {
     username = response;
     let templateVars = {
@@ -81,6 +88,9 @@ app.get("/register", (req, res) => {
 });
 
 app.post ("/register", (req, res)  => {
+  knex('users').insert({username: req.body.username, password: req.body.password}).then(()=> console.log("inserted!"))
+  .catch((err)=> {console.log(err); throw err})
+  // console.log(req.body.username);
   res.redirect("/")
 });
 
