@@ -98,7 +98,7 @@ app.post("/login", (req, res) => {
       else if (response[0].password !== req.body.password){
         res.redirect("/login");
       }
-      else if (response.password === req.body.passwords){
+      else if (response[0].password === req.body.passwords){
       req.session.user_id = response.id
       res.redirect("/");
       }
