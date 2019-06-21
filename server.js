@@ -86,6 +86,9 @@ app.post("/login", (req, res) => {
       if (!response){
         res.render("login_page").alert('Error: not found')
       }
+      else if (response.password !== req.body.passwords){
+        res.redirect("/login");
+      }
       else if (response.password === req.body.passwords){
       req.session.user_id = response.id
       res.redirect("/");
