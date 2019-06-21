@@ -6,19 +6,12 @@
          <link rel="stylesheet" href="/styles/update-page.scss">
      </head>
       <header>
-            <nav id="nav-bar">
-                    <h1 class="header">ToDizzle</h1>
-                     <div class='buttons-logout-update'>
-        <form method="POST" action="/logout">
-          <button  type="submit" id='logout-button' class="btn btn-primary">Logout</button>
-        </form>
-        <form method="GET" action="/">
-          <button type="submit" id='home-button' class="btn btn-primary">Go ~/</button>
-        </form>
-      </div>
-                  </nav>
       </header>
       <body>
+      <%include partials/_header%>
+      <form method="GET" action="/">
+          <button type="submit" id='home-button' class="btn btn-primary">Go ~/</button>
+        </form>
           <div class = "avatar-container">
               <img class="user-avatar"></img>
               </div>
