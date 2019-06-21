@@ -48,11 +48,11 @@ app.use(cookieSession({
 // User home page
 app.get("/", (req, res) => {
   var username;
-  knex.select('username').from('users').where('id', 2)
+  knex.select('username').from('users').where('id', 1)
   .then(response => {
     username = response;
     let templateVars = {
-    username: username[0].username
+    username: "bob"
   };
    console.log(response);
   res.render("home_page", templateVars);
@@ -83,10 +83,10 @@ app.post("/login", (req, res) => {
     .select()
     .where('username', req.body.username)
     .then((response) => {
-      if (!response){
+      if (response.length == 0){
         res.render("login_page").alert('Error: not found')
       }
-      else if (response.password !== req.body.passwords){
+      else if (response[0].password !== req.body.password){
         res.redirect("/login");
       }
       else if (response.password === req.body.passwords){
