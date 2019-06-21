@@ -96,7 +96,7 @@ app.post("/login", (req, res) => {
     }).catch((err) => {
       res.render('login_page', {error: err.message})
 });
-
+})
 app.get("/register", (req, res) => {
   res.render("registration_page")
 });
@@ -122,5 +122,6 @@ app.post ("/register", (req, res)  => {
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
-});
-});
+})
+
+
