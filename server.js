@@ -41,7 +41,7 @@ app.use(express.static("public"));
 // User home page
 app.get("/", (req, res) => {
   var username;
-  knex.select('username').from('users').where('id', 1)
+  knex.select('username').from('users').where('id', 2)
   .then(response => {
     username = response;
     let templateVars = {
