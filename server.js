@@ -54,7 +54,6 @@ app.get("/", (req, res) => {
     let templateVars = {
     username: "bob"
   };
-   console.log(response);
   res.render("home_page", templateVars);
   });
 });
@@ -97,7 +96,6 @@ app.post("/login", (req, res) => {
       }
     })
 });
-
 
 app.get("/register", (req, res) => {
   res.render("registration_page")
