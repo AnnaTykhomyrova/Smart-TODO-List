@@ -17,15 +17,15 @@
       <h4 class="username">Logged in as <%= username %></h4>
       <div class='buttons-logout-update'>
         <form method="POST" action="/logout">
-          <button  type="submit" id='logout-button' class="btn btn-dark btn md">logout</button>
+          <button  type="submit" id='logout-button' class="btn btn-dark btn md">Logout</button>
         </form>
         <form method="GET" action="/update">
-          <button type="submit" id='update-button' class="btn btn-dark btn md">update</button>
+          <button type="submit" id='update-button' class="btn btn-dark btn md">Update</button>
         </form>
       </div>
     </div>
     <div class="user-list">
-      <h2><%= username %> 's list</h2>
+      <h2><%= username %> 's List</h2>
       <form method="POST" action="/">
         <input class="search-bar" type="text" placeholder="What do YOU got to do?" style="width: 300px">&nbsp;&nbsp;
         <button id="add-item" class="btn btn-outline-dark btn md" type="submit">Add</button>
