@@ -59,7 +59,7 @@ app.get("/", (req, res) => {
 
 // When user click button logout
 app.post('/logout', (req, res) => {
-  req.session = {};
+  req.session = null;
   res.redirect('/login');
 });
 
