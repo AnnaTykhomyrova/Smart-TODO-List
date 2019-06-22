@@ -26,5 +26,14 @@ $('#form').on('submit',function (ev) {
         url: '/add-item'
       });
   });
+
+$('input:checkbox').on('change', function () {
+        var input = $(this).next('li');
+        if (this.checked) {
+            $(input).css('textDecoration', 'line-through');
+        } else {
+            $(input).css('textDecoration', 'none');
+        }
+    });
 });
 
