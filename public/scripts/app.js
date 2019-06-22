@@ -26,5 +26,10 @@ $('#form').on('submit',function (ev) {
         url: '/update'
       });
   });
+  $('#form').on('submit',function (ev) {
+    ev.preventDefault();
+    var input = $('#form input').val()
+    $('').preppend(`<div> ${input} </div>`)
+  })
 });
 
