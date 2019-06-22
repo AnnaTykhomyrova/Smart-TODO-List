@@ -79,6 +79,11 @@ app.get('/update', (req, res) => {
 });
 
 
+app.post('/update', (req, res) => {
+  res.redirect('/');
+});
+
+
 app.get("/login", (req, res) => {
   res.render("login_page");
 });
