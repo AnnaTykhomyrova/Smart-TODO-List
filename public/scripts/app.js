@@ -23,7 +23,7 @@ $('#form').on('submit',function (ev) {
   $('#form input').val('');
       $.ajax({
         method: 'POST',
-        url: '/update'
+        url: '/add-item'
       });
   });
   $('#form').on('submit',function (ev) {
