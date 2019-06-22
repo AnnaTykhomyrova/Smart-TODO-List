@@ -1,4 +1,5 @@
 $button-box-shadow:-11px 12px 20px 0px rgba(0, 0, 0, 0.2);
+
 .user-profile-container {
   display: flex;
   flex-direction: row;
@@ -28,4 +29,8 @@ $button-box-shadow:-11px 12px 20px 0px rgba(0, 0, 0, 0.2);
 .search-bar {
   margin-top: 1em;
   margin-bottom: 2em;
+}
+
+#add-item:hover{
+ box-shadow: $button-box-shadow;
 }
