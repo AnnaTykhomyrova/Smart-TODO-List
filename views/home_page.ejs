@@ -14,21 +14,21 @@
   <body>
     <% include partials/_header %>
     <div class='user-profile-container'>
-      <h3 class="username">Logged as <%= username %></h3>
+      <h4 class="username">Logged in as <%= username %></h4>
       <div class='buttons-logout-update'>
         <form method="POST" action="/logout">
-          <button  type="submit" id='logout-button' class="btn btn-primary">logout</button>
+          <button  type="submit" id='logout-button' class="btn btn-dark btn md">logout</button>
         </form>
-        <form method="POST" action="/update">
-          <button type="submit" id='update-button' class="btn btn-primary">update</button>
+        <form method="GET" action="/update">
+          <button type="submit" id='update-button' class="btn btn-dark btn md">update</button>
         </form>
       </div>
     </div>
     <div class="user-list">
       <h2><%= username %> 's list</h2>
       <form method="POST" action="/">
-        <input type="text" placeholder="Search something" style="width: 300px">&nbsp;&nbsp;
-        <button type="submit">Search</button>
+        <input class="search-bar" type="text" placeholder="What do YOU got to do?" style="width: 300px">&nbsp;&nbsp;
+        <button class="btn btn-outline-dark btn md" type="submit">Add</button>
       </form>
   </div>
   <div class="categories">
@@ -36,6 +36,7 @@
     <h3>Film / Series</h3>
     <h3>Restaurants</h3>
     <h3>Products</h3>
+    <h3>Other</h3>
   </div>
   </body>
 </html>
