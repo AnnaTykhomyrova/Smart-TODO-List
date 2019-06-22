@@ -16,14 +16,15 @@ $(document).ready(function() {
       });
   });
 
-$('#form').on('submit',function (ev) {
+$('button#add-item').on('click',function (ev) {
   ev.preventDefault();
-  var input = $('#form input').val();
+  var input = $('input.search-bar').val();
   console.log(input);
   $('#form input').val('');
       $.ajax({
         method: 'POST',
-        url: '/add-item'
+        url: '/add-item',
+        data: {input}
       });
   });
 });

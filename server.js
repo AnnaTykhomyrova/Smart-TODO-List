@@ -13,6 +13,8 @@ const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
+const request     = require( 'request' );
+const qs          = require('querystring');
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -78,9 +80,73 @@ app.get('/update', (req, res) => {
 });
 
 
-app.post('/add-item', (req, res) => {
-  res.redirect('/');
+// app.post('/add-item', (req, res) => {
+//   res.redirect('/');
+// });
+
+//for api call
+
+app.post("/add-item", (req, res) => {
+
+  let templateVars = {
+    username: req.session.username
+  };
+
+  // console.log("this is req", req.body.input)
+
+  let searchbarText = req.body.input;
+
+  const query = qs.stringify({ appid: 'X57U54-RPHVX5VRH3', input: `${searchbarText}`, output: 'json' })
+  // api.wolframalpha.com/v2/query?appid=X57U54-RPHVX5VRH3&input=harry%20potter&output=json
+
+  const apiUrl = `api.wolframalpha.com/v2/query?${query}`
+
+  request( `https://api.wolframalpha.com/v2/query?${query}` , function (error, response, body) {
+      if (error) {
+          console.log("error occured", error);
+      }
+      else if (response.statusCode === 200) {
+          //get (body);
+          var data = JSON.parse (body); 
+          let print = data.queryresult.datatypes;
+          let splitPrint =  print.split(",");
+          // console.log(splitPrint)
+
+          if (splitPrint.includes('Book')) {
+            console.log('found Books')
+            return;
+          }
+          else if (splitPrint.includes('Movie') || splitPrint.includes('TelevisionProgram')) {
+            console.log('found Movie')
+            return;
+          }
+          else if (splitPrint.includes('ConsumerProductsPTE')) {
+            console.log('found product')
+            return;
+          }
+          else if (splitPrint.includes('RetailLocation')) {
+            console.log('found restraunt')
+            return;
+          }
+          else {
+            console.log('found others')
+            return;
+          }
+
+      }
+      
+  }); 
+  res.render('home_page', templateVars);
+
+// Json word notation
+
+// Restraunts & cafes = RetailLocation;
+// products = ConsumerProductsPTE;
+// books = Book;
+// movie = Movie;
 });
+
+
 
 
 app.get("/login", (req, res) => {
@@ -169,5 +235,6 @@ app.post ("/register", (req, res)  => {
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
+
 
 
