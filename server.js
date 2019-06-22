@@ -65,6 +65,7 @@ app.post('/logout', (req, res) => {
 
 // When user click button update
 app.get('/update', (req, res) => {
+  if(req.session.user_id){
     var username = req.session.username;
     var password = req.session.password;
     let templateVars = {
@@ -72,6 +73,9 @@ app.get('/update', (req, res) => {
       password: password
     };
   res.render("update_page", templateVars);
+  } else {
+    res.redirect("/login")
+  }
 });
 
 
