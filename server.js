@@ -53,7 +53,6 @@ app.get("/", (req, res) => {
     };
      return res.render("home_page", templateVars);
   }
-
   res.redirect('/login');
 });
 
@@ -66,8 +65,8 @@ app.post('/logout', (req, res) => {
 // When user click button update
 app.get('/update', (req, res) => {
   if(req.session.user_id){
-    var username = req.session.username;
-    var password = req.session.password;
+    let username = req.session.username;
+    let password = req.session.password;
     let templateVars = {
       username: username,
       password: password
@@ -79,7 +78,7 @@ app.get('/update', (req, res) => {
 });
 
 
-app.post('/update', (req, res) => {
+app.post('/add-item', (req, res) => {
   res.redirect('/');
 });
 
