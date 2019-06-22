@@ -110,30 +110,29 @@ app.post("/add-item", (req, res) => {
           var data = JSON.parse (body); 
           let print = data.queryresult.datatypes;
           let splitPrint =  print.split(",");
+          // console.log(splitPrint)
 
-          for (var i = 0; i < splitPrint.length; i++) {
-          if (splitPrint[i] === 'Book') {
+          if (splitPrint.includes('Book')) {
             console.log('found Books')
             return;
           }
-          else if (splitPrint[i] === 'Movie' || splitPrint[i] === 'TelevisionProgram') {
+          else if (splitPrint.includes('Movie') || splitPrint.includes('TelevisionProgram')) {
             console.log('found Movie')
             return;
           }
-          else if (splitPrint[i] === 'ConsumerProductsPTE') {
+          else if (splitPrint.includes('ConsumerProductsPTE')) {
             console.log('found product')
             return;
           }
-          else if (splitPrint[i] === 'RetailLocation') {
-            console.log('found restraunt or cafe')
+          else if (splitPrint.includes('RetailLocation')) {
+            console.log('found restraunt')
             return;
           }
           else {
             console.log('found others')
             return;
           }
-          //Do something
-          }
+
       }
       
   }); 
