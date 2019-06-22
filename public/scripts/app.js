@@ -28,8 +28,9 @@ $('#form').on('submit',function (ev) {
   });
   $('#form').on('submit',function (ev) {
     ev.preventDefault();
-    var input = $('#form input').val()
-    $('').preppend(`<div> ${input} </div>`)
+    var input = $('#form input').val();
+    let newItem = $(`<div> ${input} </div>`)
+    $('').preppend(newItem);
   })
 });
 
