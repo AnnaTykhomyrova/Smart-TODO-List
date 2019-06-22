@@ -114,22 +114,23 @@ app.post("/add-item", (req, res) => {
           for (var i = 0; i < splitPrint.length; i++) {
           if (splitPrint[i] === 'Book') {
             console.log('found Books')
+            return;
           }
-          else if (splitPrint[i] === 'TelevisionProgram') {
-            console.log('found show')
-          }
-
-          else if (splitPrint[i] === 'Movie') {
+          else if (splitPrint[i] === 'Movie' || splitPrint[i] === 'TelevisionProgram') {
             console.log('found Movie')
+            return;
           }
           else if (splitPrint[i] === 'ConsumerProductsPTE') {
             console.log('found product')
+            return;
           }
           else if (splitPrint[i] === 'RetailLocation') {
             console.log('found restraunt or cafe')
+            return;
           }
           else {
             console.log('found others')
+            return;
           }
           //Do something
           }
@@ -137,6 +138,13 @@ app.post("/add-item", (req, res) => {
       
   }); 
   res.render('home_page', templateVars);
+
+// Json word notation
+
+// Restraunts & cafes = RetailLocation;
+// products = ConsumerProductsPTE;
+// books = Book;
+// movie = Movie;
 });
 
 
