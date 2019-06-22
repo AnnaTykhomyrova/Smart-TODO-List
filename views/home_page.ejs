@@ -26,17 +26,32 @@
     </div>
     <div class="user-list">
       <h2><%= username %> 's List</h2>
-      <form id='form' method="POST" action="/update">
+      <form id='form' method="POST" action="/add-item">
         <input class="search-bar" type="text" placeholder="What do YOU got to do?" style="width: 300px">&nbsp;&nbsp;
         <button id="add-item" class="btn btn-outline-dark btn md" type="submit">Add</button>
       </form>
   </div>
   <div class="categories">
-    <h3>To Read</h3>
-    <h3>To Watch</h3>
-    <h3>To Eat</h3>
-    <h3>To Buy</h3>
-    <h3>Other</h3>
+    <div class="read-container">
+      <h3>To Read</h3>
+      <div class="read"></div>
+    </div>
+    <div class="watch-container">
+      <h3>To Watch</h3>
+      <div class="watch"></div>
+    </div>
+    <div class="eat-container">
+      <h3>To Eat</h3>
+      <div class="eat"></div>
+    </div>
+    <div class="buy-container">
+      <h3>To Buy</h3>
+      <div class="buy"></div>
+    </div>
+    <div class="other-container">
+      <h3>Other</h3>
+      <div class="other"></div>
+    </div>
   </div>
   </body>
 </html>
