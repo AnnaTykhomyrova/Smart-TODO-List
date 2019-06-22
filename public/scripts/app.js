@@ -1,7 +1,6 @@
 
 $(document).ready(function() {
-
-  $('#logout-button').on('submit',function (ev) {
+    $('#logout-button').on('submit',function (ev) {
   ev.preventDefault();
       $.ajax({
         method: 'POST',
