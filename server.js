@@ -83,7 +83,7 @@ app.post("/login", (req, res) => {
     .select()
     .where('username', req.body.username)
     .then((response) => {
-    if(req.body.username.lengthrs > 0){
+    if(req.body.username.length > 0){
       if (response.length === 0){
         throw new Error('User doesn\'t exist');
       }
