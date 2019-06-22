@@ -54,7 +54,7 @@ app.get("/", (req, res) => {
      return res.render("home_page", templateVars);
   }
 
-  res.redirect('/login')
+  res.redirect('/login');
 });
 
 // When user click button logout
@@ -64,16 +64,14 @@ app.post('/logout', (req, res) => {
 });
 
 // When user click button update
-app.post('/update', (req, res) => {
+app.get('/update', (req, res) => {
     var username = req.session.username;
+    var password = req.session.password;
     let templateVars = {
-      username: username
+      username: username,
+      password: password
     };
   res.render("update_page", templateVars);
-});
-
-app.get("/update", (req, res) => {
-  res.render("update_page");
 });
 
 
@@ -81,6 +79,31 @@ app.get("/login", (req, res) => {
   res.render("login_page");
 });
 
+app.post('/update/save', (req, res) => {
+  const newUsername = req.body['username-update'];
+  knex('users')
+    .where('id', req.session.user_id)
+    .update({
+      username: newUsername
+    })
+    .then(() => {
+      req.session.username = newUsername;
+      res.redirect('/update');
+    });
+});
+
+app.post('/update/password', (req, res) => {
+  const newPassword = req.body['password-update'];
+  knex('users')
+    .where('id', req.session.user_id)
+    .update({
+      password: newPassword
+    })
+    .then(() => {
+      req.session.password = newPassword;
+      res.redirect('/update');
+    });
+});
 
 app.post("/login", (req, res) => {
   knex('users')
@@ -88,7 +111,7 @@ app.post("/login", (req, res) => {
     .where('username', req.body.username)
     .then((response) => {
       if (response.length == 0){
-        res.render("login_page")
+        res.render("login_page");
       }
       else if (response[0].password !== req.body.password){
         res.redirect("/login");
@@ -98,7 +121,7 @@ app.post("/login", (req, res) => {
       req.session.username = response[0].username;
       res.redirect("/");
       }
-    })
+    });
 });
 
 
@@ -120,8 +143,8 @@ app.post ("/register", (req, res)  => {
         .then((response) => {
           req.session.user_id = response[0].id;
           req.session.username = response[0].username;
-          res.redirect("/")
-        })
+          res.redirect("/");
+        });
     })
     .catch((err) => {
       res.render('registration_page', {error: err.message})
