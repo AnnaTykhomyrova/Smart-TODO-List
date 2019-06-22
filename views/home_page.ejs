@@ -14,12 +14,12 @@
   <body>
     <% include partials/_header %>
     <div class='user-profile-container'>
-      <h3 class="username">Logged as <%= username %></h3>
+      <h4 class="username">Logged in as <%= username %></h4>
       <div class='buttons-logout-update'>
         <form method="POST" action="/logout">
           <button  type="submit" id='logout-button' class="btn btn-primary">logout</button>
         </form>
-        <form method="POST" action="/update">
+        <form method="GET" action="/update">
           <button type="submit" id='update-button' class="btn btn-primary">update</button>
         </form>
       </div>

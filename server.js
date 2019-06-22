@@ -37,7 +37,7 @@ app.use(express.static("public"));
 app.use(cookieSession({
   name: "session",
   keys: ["key1", "key2"],
-  
+
   maxAge: 24 * 60 * 60 * 1000
 }));
 
@@ -47,36 +47,63 @@ app.use(cookieSession({
 
 // User home page
 app.get("/", (req, res) => {
-  var username;
-  knex.select('username').from('users').where('id', 1)
-  .then(response => {
-    username = response;
+  if (req.session.user_id) {
     let templateVars = {
-    username: "bob"
-  };
-  res.render("home_page", templateVars);
-  });
+      username: req.session.username
+    };
+     return res.render("home_page", templateVars);
+  }
+
+  res.redirect('/login');
 });
 
 // When user click button logout
 app.post('/logout', (req, res) => {
-  req.session.user_id = null;
+  req.session = {};
   res.redirect('/login');
 });
 
 // When user click button update
-app.post('/update', (req, res) => {
-  res.render("update_page");
+app.get('/update', (req, res) => {
+    var username = req.session.username;
+    var password = req.session.password;
+    let templateVars = {
+      username: username,
+      password: password
+    };
+  res.render("update_page", templateVars);
 });
 
-app.get("/update", (req, res) => {
-  res.render("update_page");
-});
 
 app.get("/login", (req, res) => {
   res.render("login_page");
 });
 
+app.post('/update/save', (req, res) => {
+  const newUsername = req.body['username-update'];
+  knex('users')
+    .where('id', req.session.user_id)
+    .update({
+      username: newUsername
+    })
+    .then(() => {
+      req.session.username = newUsername;
+      res.redirect('/update');
+    });
+});
+
+app.post('/update/password', (req, res) => {
+  const newPassword = req.body['password-update'];
+  knex('users')
+    .where('id', req.session.user_id)
+    .update({
+      password: newPassword
+    })
+    .then(() => {
+      req.session.password = newPassword;
+      res.redirect('/update');
+    });
+});
 
 app.post("/login", (req, res) => {
   knex('users')
@@ -91,7 +118,8 @@ app.post("/login", (req, res) => {
         throw new Error('Invalid username or password');
       }
       else if (response[0].password === req.body.password){
-      req.session.user_id = response.id
+      req.session.user_id = response[0].id;
+      req.session.username = response[0].username;
       res.redirect("/");
       }
     } else {
@@ -103,7 +131,7 @@ app.post("/login", (req, res) => {
 });
 
 app.get("/register", (req, res) => {
-  res.render("registration_page")
+  res.render("registration_page");
 });
 
 app.post ("/register", (req, res)  => {
@@ -116,8 +144,13 @@ app.post ("/register", (req, res)  => {
       } else {
         return knex('users')
         .insert({username: req.body.username, password: req.body.password})
+        .then(() => knex('users').select().where('username', req.body.username))
         .then((response) => {
-        res.redirect("/")
+          req.session.user_id = response[0].id;
+          req.session.username = response[0].username;
+          res.redirect("/");
+        }).catch((err) => {
+      res.render('registration_page', {error: err.message})
     })
   }
 }).catch((err) => {
