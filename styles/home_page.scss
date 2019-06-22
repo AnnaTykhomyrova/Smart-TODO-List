@@ -29,7 +29,10 @@ $button-box-shadow:-11px 12px 20px 0px rgba(0, 0, 0, 0.2);
 .search-bar {
   margin-top: 1em;
   margin-bottom: 2em;
+  border: 1px solid rgb(59, 59, 59);
 }
+ 
+
 
 #add-item:hover{
  box-shadow: $button-box-shadow;
