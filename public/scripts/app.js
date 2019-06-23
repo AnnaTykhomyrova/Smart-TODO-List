@@ -1,3 +1,20 @@
+function renderItem(data) {
+  $("#read-container").append(data)
+}
+
+function loadItems(callback) { //$jquery/ ajax request to load new tweets onto page and add tweets to database
+  $.ajax({
+    type: "GET",
+    url: "/add-item",
+    success: callback
+  })
+};
+
+
+loadItems(function (response) {
+  response.forEach((item) => renderItem(item))
+});
+
 
 $(document).ready(function() {
   $('#logout-button').on('submit',function (ev) {
@@ -24,8 +41,11 @@ $('button#add-item').on('click',function (ev) {
       $.ajax({
         method: 'POST',
         url: '/add-item',
-        data: {input}
-      });
+        data: {input},
+        success: loadItems.bind(null, function (response) {
+          const lastItem = response[response.length - 1];
+          renderItem(lastItem);
+      })
   });
   $('#form').on('submit',function (ev) {
     ev.preventDefault();
@@ -33,5 +53,6 @@ $('button#add-item').on('click',function (ev) {
     let newItem = $(`<div> ${input} </div>`)
     $('').preppend(newItem);
   })
+});
 });
 
