@@ -125,11 +125,11 @@ app.post("/add-item", (req, res) => {
             return;
           }
           else if (splitPrint.includes('RetailLocation')) {
-            console.log('found restraunt')
+            console.log('found restaurant')
             return;
           }
           else {
-            console.log('found others')
+            console.log('found other')
             return;
           }
 
