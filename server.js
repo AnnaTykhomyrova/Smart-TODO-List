@@ -85,14 +85,11 @@ app.get('/update', (req, res) => {
 // });
 
 //for api call
-
 app.post("/add-item", (req, res) => {
 
   let templateVars = {
-    username: req.session.username
+    username: req.session.username  
   };
-
-  // console.log("this is req", req.body.input)
 
   let searchbarText = req.body.input;
 
@@ -113,6 +110,8 @@ app.post("/add-item", (req, res) => {
           // console.log(splitPrint)
 
           if (splitPrint.includes('Book')) {
+            queryId.push(1);
+            console.log(queryId);
             return knex('list_items')
             .insert({user_description: req.body.input, api_response: 'books', category_id: '1'})
             .then(()=>{
@@ -162,7 +161,7 @@ app.post("/add-item", (req, res) => {
     });
   })
 // Json word notation
-  
+
 // Restraunts & cafes = RetailLocation;
 // products = ConsumerProductsPTE;
 // books = Book;
