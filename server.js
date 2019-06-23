@@ -113,38 +113,61 @@ app.post("/add-item", (req, res) => {
           // console.log(splitPrint)
 
           if (splitPrint.includes('Book')) {
-            console.log('found Books')
-            return;
+            return knex('list_items')
+            .insert({user_description: req.body.input, api_response: 'books', category_id: '1'})
+            .then(()=>{
+              console.log('inserted into: books')
+            }).catch((err)=>{
+              if (err) throw error;
+            })
           }
           else if (splitPrint.includes('Movie') || splitPrint.includes('TelevisionProgram')) {
-            console.log('found Movie')
-            return;
+            return knex('list_items')
+            .insert({user_description: req.body.input, api_response: 'films', category_id: '2'})
+            .then(()=>{
+              console.log('inserted into: films')
+            }).catch((err)=>{
+              if (err) throw error;
+            })
           }
           else if (splitPrint.includes('ConsumerProductsPTE')) {
-            console.log('found product')
-            return;
+            return knex('list_items')
+            .insert({user_description: req.body.input, api_response: 'products', category_id: '3'})
+            .then(()=>{
+              console.log('inserted into: products')
+            }).catch((err)=>{
+              if (err) throw error;
+            })
           }
           else if (splitPrint.includes('RetailLocation')) {
-            console.log('found restaurant')
-            return;
+            return knex('list_items')
+            .insert({user_description: req.body.input, api_response: 'restaurants', category_id: '4'})
+            .then(()=>{
+              console.log('inserted into: restaurants')
+            }).catch((err)=>{
+              if (err) throw error;
+            })
           }
           else {
-            console.log('found other')
-            return;
+            return knex('list_items')
+            .insert({user_description: req.body.input, api_response: 'other', category_id: '5'})
+            .then(()=>{
+              console.log('inserted into: other')
+            }).catch((err)=>{
+              if (err) throw error;
+            });
           }
-
-      }
-      
-  }); 
-  res.render('home_page', templateVars);
-
+        }
+        res.render('home_page', templateVars);
+    });
+  })
 // Json word notation
-
+  
 // Restraunts & cafes = RetailLocation;
 // products = ConsumerProductsPTE;
 // books = Book;
 // movie = Movie;
-});
+
 
 
 
