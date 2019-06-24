@@ -166,6 +166,14 @@ app.post("/add-item", (req, res) => {
 // products = ConsumerProductsPTE;
 // books = Book;
 // movie = Movie;
+app.get("/add-items", (res, req)=>{
+  knex
+  .select()
+  .from('list_items')
+  .then((response)=>{
+  console.log(res.JSON(response));
+  })
+});
 
 
 

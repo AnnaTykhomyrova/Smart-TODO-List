@@ -47,12 +47,12 @@ $('button#add-item').on('click',function (ev) {
           renderItem(lastItem);
       })
   });
-  $('#form').on('submit',function (ev) {
-    ev.preventDefault();
-    var input = $('#form input').val();
-    let newItem = $(`<div> ${input} </div>`)
-    $('').preppend(newItem);
-  })
+  // $('#form').on('submit',function (ev) {
+  //   ev.preventDefault();
+  //   var input = $('#form input').val();
+  //   let newItem = $(`<div> ${input} </div>`)
+  //   $('').preppend(newItem);
+  // })
 });
 });
 
