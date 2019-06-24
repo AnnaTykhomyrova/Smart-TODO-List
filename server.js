@@ -83,10 +83,113 @@ app.get('/update', (req, res) => {
 // app.post('/add-item', (req, res) => {
 //   res.redirect('/');
 // });
-
 //for api call
-app.post("/add-item", (req, res) => {
+// Json word notation
 
+// Restraunts & cafes = RetailLocation;
+// products = ConsumerProductsPTE;
+// books = Book;
+// movie = Movie;
+
+
+app.get("/register", (req, res) => {
+  res.render("registration_page");
+});
+
+app.post ("/register", (req, res)  => {
+  knex('users')
+    .select('username')
+    .where('username', req.body.username)
+    .then((response)=>{
+      if (response.length > 0){
+        throw new Error('User with this name already exists');
+      } else {
+        return knex('users')
+        .insert({username: req.body.username, password: req.body.password})
+        .then(() => knex('users').select().where('username', req.body.username))
+        .then((response) => {
+          req.session.user_id = response[0].id;
+          req.session.username = response[0].username;
+          res.redirect("/");
+        }).catch((err) => {
+      res.render('registration_page', {error: err.message})
+    })
+  }
+}).catch((err) => {
+  res.render('registration_page', {error: err.message})
+});
+});
+
+app.get("/login", (req, res) => {
+  res.render("login_page");
+});
+
+app.post("/login", (req, res) => {
+  knex('users')
+    .select()
+    .where('username', req.body.username)
+    .then((response) => {
+    if(req.body.username.length > 0){
+      if (response.length === 0){
+        throw new Error('User doesn\'t exist');
+      }
+      else if (response[0].password !== req.body.password){
+        throw new Error('Invalid username or password');
+      }
+      else if (response[0].password === req.body.password){
+      req.session.user_id = response[0].id;
+      req.session.username = response[0].username;
+      res.redirect("/");
+      }
+    } else {
+      throw new Error('Enter your username')
+    }
+    }).catch((err) => {
+      res.render('login_page', {error: err.message})
+});
+});
+
+app.post('/update/save', (req, res) => {
+  const newUsername = req.body['username-update'];
+  knex('users')
+    .where('id', req.session.user_id)
+    .update({
+      username: newUsername
+    })
+    .then(() => {
+      req.session.username = newUsername;
+      res.redirect('/update');
+    });
+});
+
+app.post('/update/password', (req, res) => {
+  const newPassword = req.body['password-update'];
+  knex('users')
+    .where('id', req.session.user_id)
+    .update({
+      password: newPassword
+    })
+    .then(() => {
+      req.session.password = newPassword;
+      res.redirect('/update');
+    });
+});
+
+app.post("/get-item", (req, res) => {
+  if (req.session.id !== undefined && req.session.id !== null) {
+    knex
+      .select('list_items.id', 'list_items.api_response', 'list_items.category_id', 'list_items.list_id')
+      .from('list_items')
+      .innerJoin('users', 'items.user_id', 'users.id')
+      .where('user_id', req.session.id)
+      .then(results => {
+        res.json(results);
+        console.log(results);
+      });
+  }
+});
+
+app.post("/add-item", (req, res) => {
   let templateVars = {
     username: req.session.username  
   };
@@ -109,9 +212,6 @@ app.post("/add-item", (req, res) => {
           let splitPrint =  print.split(",");
           // console.log(splitPrint)
 
-          if (splitPrint.includes('Book')) {
-            queryId.push(1);
-            console.log(queryId);
             return knex('list_items')
             .insert({user_description: req.body.input, api_response: 'books', category_id: '1'})
             .then(()=>{
@@ -151,120 +251,16 @@ app.post("/add-item", (req, res) => {
             return knex('list_items')
             .insert({user_description: req.body.input, api_response: 'other', category_id: '5'})
             .then(()=>{
+              console.log(apiCategory);
               console.log('inserted into: other')
             }).catch((err)=>{
               if (err) throw error;
             });
           }
-        }
-        res.render('home_page', templateVars);
-    });
-  })
-// Json word notation
-
-// Restraunts & cafes = RetailLocation;
-// products = ConsumerProductsPTE;
-// books = Book;
-// movie = Movie;
-app.get("/get-items", (res, req)=>{
-  knex
-  .select()
-  .from('list_items')
-  .then(response =>{
-    console.log(response)
-  })
-});
-
-
-
-
-
-app.get("/login", (req, res) => {
-  res.render("login_page");
-});
-
-app.post('/update/save', (req, res) => {
-  const newUsername = req.body['username-update'];
-  knex('users')
-    .where('id', req.session.user_id)
-    .update({
-      username: newUsername
-    })
-    .then(() => {
-      req.session.username = newUsername;
-      res.redirect('/update');
-    });
-});
-
-app.post('/update/password', (req, res) => {
-  const newPassword = req.body['password-update'];
-  knex('users')
-    .where('id', req.session.user_id)
-    .update({
-      password: newPassword
-    })
-    .then(() => {
-      req.session.password = newPassword;
-      res.redirect('/update');
-    });
-});
-
-app.post("/login", (req, res) => {
-  knex('users')
-    .select()
-    .where('username', req.body.username)
-    .then((response) => {
-    if(req.body.username.length > 0){
-      if (response.length === 0){
-        throw new Error('User doesn\'t exist');
-      }
-      else if (response[0].password !== req.body.password){
-        throw new Error('Invalid username or password');
-      }
-      else if (response[0].password === req.body.password){
-      req.session.user_id = response[0].id;
-      req.session.username = response[0].username;
-      res.redirect("/");
-      }
-    } else {
-      throw new Error('Enter your username')
-    }
-    }).catch((err) => {
-      res.render('login_page', {error: err.message})
-});
-});
-
-app.get("/register", (req, res) => {
-  res.render("registration_page");
-});
-
-app.post ("/register", (req, res)  => {
-  knex('users')
-    .select('username')
-    .where('username', req.body.username)
-    .then((response)=>{
-      if (response.length > 0){
-        throw new Error('User with this name already exists');
-      } else {
-        return knex('users')
-        .insert({username: req.body.username, password: req.body.password})
-        .then(() => knex('users').select().where('username', req.body.username))
-        .then((response) => {
-          req.session.user_id = response[0].id;
-          req.session.username = response[0].username;
-          res.redirect("/");
-        }).catch((err) => {
-      res.render('registration_page', {error: err.message})
-    })
-  }
-}).catch((err) => {
-  res.render('registration_page', {error: err.message})
-});
-});
-
+        })
+      })
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
-
 
 
