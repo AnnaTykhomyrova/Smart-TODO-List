@@ -64,17 +64,16 @@ $(document).ready(function() {
         data: JSON,
         success: function (response){
           for (let i in response){
-            console.log(response[i].api_response)
+
             if (response[i].api_response === "books"){
-              console.log('I got a book')
-              // $("#read-container").append(`<div> ${input}</div>`)
+              $("#read-container").append(`<ul> <li> ${input}</li>`)
             }
                 else if (response[i].api_response === "films"){
-              // $("#read-container").append(`<div> ${input}</div>`)
+                  
               console.log('I got a movie')
            }
                 else if (response[i].api_response === "restaurants"){
-                  // $("#read-container").append(`<div> ${input}</div>`)
+                  $("#eat-container").append(`<ul> <li> ${input}</li>`)
                   console.log('I got a resto')
                }
                 else if (response[i].api_response === "products"){
