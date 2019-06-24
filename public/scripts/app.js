@@ -72,7 +72,9 @@ $(document).ready(function() {
           renderItems(lastItem);
         })
         
-        
+      })
+    });
+  })  
         
         
         
@@ -111,9 +113,7 @@ $(document).ready(function() {
            
         //   }
         // }
-      })
-    });
-  })
+     
             // console.log(response[i].category_id)
           //   if (response[i].category_id === 1){
           //     $('.read-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)

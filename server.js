@@ -187,7 +187,7 @@ app.post("/add-item", (req, res) => {
 
   const apiUrl = `api.wolframalpha.com/v2/query?${query}`
 
-  request( `https://api.wolframalpha.com/v2/query?${query}` , function (error, response, body) {
+  request( `https://api.wolframalpha.com/v2/query?${query}`, function (error, response, body) {
       if (error) {
           console.log("error occured", error);
       }
@@ -250,6 +250,7 @@ app.post("/add-item", (req, res) => {
         }   
       })
 });
+
 app.get("/get-item", (req, res) => {
   console.log(req.session.user_id)
   if (req.session.user_id !== undefined && req.session.user_id !== null) {
