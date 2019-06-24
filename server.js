@@ -197,9 +197,9 @@ app.post("/add-item", (req, res) => {
           let print = data.queryresult.datatypes;
           let splitPrint =  print.split(",");
           // console.log(splitPrint)
-          if (splitPrint.includes('Book')) {
+          if (splitPrint.includes('Book') || splitPrint.includes('Novel')) {
             return knex('list_items')
-            .insert({user_description: req.body.input, api_response: 'books', category_id: '1', list_id: '1', user_id: req.session.user_id})
+            .insert({user_description: req.body.input, api_response: 'books', category_id: '1', user_id: req.session.user_id})
             .then(()=>{
               console.log('inserted into: books')
               res.status(200).send('got it')
