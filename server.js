@@ -42,7 +42,7 @@ app.use(cookieSession({
 
   maxAge: 24 * 60 * 60 * 1000
 }));
-
+app.use( express.static( "public" ) );
 
 // Mount all resource routes
 // app.use("/api/users", usersRoutes(knex));
@@ -191,7 +191,7 @@ app.post("/get-item", (req, res) => {
 
 app.post("/add-item", (req, res) => {
   let templateVars = {
-    username: req.session.username  
+    username: req.session.username
   };
 
   let searchbarText = req.body.input;
@@ -207,7 +207,7 @@ app.post("/add-item", (req, res) => {
       }
       else if (response.statusCode === 200) {
           //get (body);
-          var data = JSON.parse (body); 
+          var data = JSON.parse (body);
           let print = data.queryresult.datatypes;
           let splitPrint =  print.split(",");
           // console.log(splitPrint)
