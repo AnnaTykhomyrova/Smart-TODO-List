@@ -5,7 +5,7 @@ function renderItem(data) {
 function loadItems(callback) { //$jquery/ ajax request to load new tweets onto page and add tweets to database
   $.ajax({
     type: "GET",
-    url: "/add-item",
+    url: "/get-items",
     success: callback
   })
 };
