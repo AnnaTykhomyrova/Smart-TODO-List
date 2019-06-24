@@ -44,40 +44,40 @@ $(document).ready(function() {
           url: '/add-item',
           data: {input},
           success: function(response) {
-            for (let i in response){
-              if (response[i] === "books"){
-                $("#read-container").append(`<li> ${input}</li>`)
-                // }
-              } else if (response[i] === "films"){
-                $("#read-container").append(`<li> ${input}</li>`)
-                // }
-              } else if (response[i] === "restaurants"){
-                $("#read-container").append(`<li> ${input}</li>`)
-                // }
-              } else if (response[i] === "products"){
-                $("#read-container").append(`<li> ${input}</li>`)
-                // }
-              } else if (response[i] === "other"){
-                $("#read-container").append(`<li> ${input}</li>`)
-                // }
-              } 
-            }
+            console.log(response);
           }
          })
-     $.ajax({
+     
+         $.ajax({
         method: 'GET',
         url: '/get-item',
         data: JSON,
         success: function (response){
-          console.log('Found it!', response)
-        }
+          for (let i in response){
+            if (response[i].api_response === "books"){
+              $("#read-container").append(`<li> ${input}</li>`)
+            } 
+                else if (response[i].api_response === "films"){
+              $("#read-container").append(`<li> ${input}</li>`)
+           } 
+                else if (response[i].api_response === "restaurants"){
+                  $("#read-container").append(`<li> ${input}</li>`)
+               }
+                else if (response[i].api_response === "products"){
+              $("#read-container").append(`<li> ${input}</li>`)
+               } 
+               else if (response[i].api_response === "other"){
+              $("#read-container").append(`<li> ${input}</li>`)
+               }
+              }
+          }
+        })
       })
-  });
+    })
   // $('#form').on('submit',function (ev) {
   //   ev.preventDefault();
   //   var input = $('#form input').val();
   //   let newItem = $(`<div> ${input} </div>`)
   //   $('').preppend(newItem);
   // })
-});
 
