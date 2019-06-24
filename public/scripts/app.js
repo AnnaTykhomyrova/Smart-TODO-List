@@ -1,19 +1,21 @@
-function renderItem (data) {
-  $("#read-container").append(`<li> ${data} </li>`)
-}
+// function renderItem (data) {
+//   $("#read-container").append(`<li> ${data}</li>`)
+// }
 
-function loadItems(callback) { //$jquery/ ajax request to load new tweets onto page and add tweets to database
-  $.ajax({
-    type: "GET",
-    url: "/get-item",
-    success: callback
-  })
-};
+// function loadItems(callback) { //$jquery/ ajax request to load new tweets onto page and add tweets to database
+//   $.ajax({
+//     type: "GET",
+//     url: "/get-item",
+//     success: callback
+//   })
+// };
+//  // success: loadItems.bind(null, function (response) {
+        //   // const lastItem = response[response.length - 1];
+//         //   renderItem(`${input}`);
 
-
-loadItems(function (response) {
-  response.forEach((item) => renderItem(item))
-});
+// loadItems(function (response) {
+//   response.forEach((item) => renderItem(item))
+// });
 
 
 $(document).ready(function() {
@@ -32,24 +34,26 @@ $(document).ready(function() {
         url: '/update'
       });
   });
-
-$('button #add-item').on('click',function (ev) {
-  ev.preventDefault();
-  var input = $('input.search-bar').val();
-  console.log(input);
-  $('#form input').val('');
-      $.ajax({
-        method: 'POST',
-        url: '/add-item',
-        data: {input},
-        // success: loadItems.bind(null, function (response) {
-        //   // const lastItem = response[response.length - 1];
-        //   renderItem(`${input}`);
-      })
-      $.ajax({
+  
+  $('#form').on('submit',function (ev) {
+    ev.preventDefault();
+    var input = $('input.search-bar').val();
+    $('#form input').val('');
+        $.ajax({
+          method: 'POST',
+          url: '/add-item',
+          data: {input},
+          success: function(response) {
+            console.log(response);
+          }
+         })
+     $.ajax({
         method: 'GET',
         url: '/get-item',
         data: JSON,
+        success: function (response){
+          console.log('Found it!', response)
+        }
       })
   });
   // $('#form').on('submit',function (ev) {

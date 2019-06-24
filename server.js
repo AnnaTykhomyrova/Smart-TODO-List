@@ -175,20 +175,6 @@ app.post('/update/password', (req, res) => {
     });
 });
 
-app.post("/get-item", (req, res) => {
-  if (req.session.id !== undefined && req.session.id !== null) {
-    knex
-      .select('list_items.id', 'list_items.api_response', 'list_items.category_id', 'list_items.list_id')
-      .from('list_items')
-      .innerJoin('users', 'items.user_id', 'users.id')
-      .where('user_id', req.session.id)
-      .then(results => {
-        res.json(results);
-        console.log(results);
-      });
-  }
-});
-
 app.post("/add-item", (req, res) => {
   let templateVars = {
     username: req.session.username  
@@ -211,56 +197,79 @@ app.post("/add-item", (req, res) => {
           let print = data.queryresult.datatypes;
           let splitPrint =  print.split(",");
           // console.log(splitPrint)
-
+          if (splitPrint.includes('Book')) {
             return knex('list_items')
-            .insert({user_description: req.body.input, api_response: 'books', category_id: '1'})
+            .insert({user_description: req.body.input, api_response: 'books', category_id: '1', list_id: '1', user_id: req.session.user_id})
             .then(()=>{
               console.log('inserted into: books')
+              res.status(200).send('got it')
             }).catch((err)=>{
               if (err) throw error;
             })
           }
           else if (splitPrint.includes('Movie') || splitPrint.includes('TelevisionProgram')) {
             return knex('list_items')
-            .insert({user_description: req.body.input, api_response: 'films', category_id: '2'})
+            .insert({user_description: req.body.input, api_response: 'films', category_id: '2', user_id: req.session.user_id})
             .then(()=>{
               console.log('inserted into: films')
+              res.status(200).send('got it')
             }).catch((err)=>{
               if (err) throw error;
             })
           }
           else if (splitPrint.includes('ConsumerProductsPTE')) {
             return knex('list_items')
-            .insert({user_description: req.body.input, api_response: 'products', category_id: '3'})
+            .insert({user_description: req.body.input, api_response: 'products', category_id: '3', user_id: req.session.user_id})
             .then(()=>{
               console.log('inserted into: products')
+              res.status(200).send('got it')
             }).catch((err)=>{
               if (err) throw error;
             })
           }
           else if (splitPrint.includes('RetailLocation')) {
             return knex('list_items')
-            .insert({user_description: req.body.input, api_response: 'restaurants', category_id: '4'})
+            .insert({user_description: req.body.input, api_response: 'restaurants', category_id: '4', user_id: req.session.user_id})
             .then(()=>{
               console.log('inserted into: restaurants')
+              res.status(200).send('got it')
             }).catch((err)=>{
               if (err) throw error;
             })
           }
           else {
             return knex('list_items')
-            .insert({user_description: req.body.input, api_response: 'other', category_id: '5'})
+            .insert({user_description: req.body.input, api_response: 'other', category_id: '5', user_id: req.session.user_id})
             .then(()=>{
-              console.log(apiCategory);
               console.log('inserted into: other')
+              res.status(200).send('got it')
             }).catch((err)=>{
               if (err) throw error;
             });
           }
-        })
+        }   
       })
-app.listen(PORT, () => {
-  console.log("Example app listening on port " + PORT);
+});
+app.get("/get-item", (req, res) => {
+  console.log(req.session.user_id)
+  if (req.session.user_id !== undefined && req.session.user_id !== null) {
+    knex.select('api_response', 'list_items.id', 'category_id', 'user_id')
+      .from('list_items')
+      .innerJoin('users', 'list_items.user_id', 'users.id')
+      .where('user_id', req.session.user_id)
+      .then(results => {
+        res.send(results);
+      });
+  }
 });
 
+app.listen(PORT, () => {
+  console.log("Example app listening on port " + PORT);
+})
 
+// knex.select('list_items.id', 'list_items.api_response', 'list_items.category_id')
+// .from('list_items')
+// .innerJoin('users', 'list_items.user_id', 'users.id')
+// .where('user_id', req.session.user_id)
+// .then(results => {
+//   res.send(results);
