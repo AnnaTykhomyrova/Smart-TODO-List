@@ -86,4 +86,3 @@ $(document).ready(function() {
   //   let newItem = $(`<div> ${input} </div>`)
   //   $('').preppend(newItem);
   // })
-
