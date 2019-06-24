@@ -34,7 +34,16 @@ $(document).ready(function() {
         url: '/update'
       });
   });
-  
+
+  $('input:checkbox').on('change', function () {
+        var input = $(this).next('li');
+        if (this.checked) {
+            $(input).css('textDecoration', 'line-through');
+        } else {
+            $(input).css('textDecoration', 'none');
+        }
+    });
+
   $('#form').on('submit',function (ev) {
     ev.preventDefault();
     var input = $('input.search-bar').val();
@@ -47,7 +56,8 @@ $(document).ready(function() {
             console.log(response);
           }
          })
-     
+
+
          $.ajax({
         method: 'GET',
         url: '/get-item',
@@ -58,11 +68,11 @@ $(document).ready(function() {
             if (response[i].api_response === "books"){
               console.log('I got a book')
               // $("#read-container").append(`<div> ${input}</div>`)
-            } 
+            }
                 else if (response[i].api_response === "films"){
               // $("#read-container").append(`<div> ${input}</div>`)
               console.log('I got a movie')
-           } 
+           }
                 else if (response[i].api_response === "restaurants"){
                   // $("#read-container").append(`<div> ${input}</div>`)
                   console.log('I got a resto')
@@ -70,7 +80,7 @@ $(document).ready(function() {
                 else if (response[i].api_response === "products"){
               // $("#read-container").append(`<div> ${input}</div>`)
               console.log('I got a thhingh')
-               } 
+               }
                else if (response[i].api_response === "other"){
               // $("#read-container").append(`<div> ${input}</div>`)
               console.log('I got a other')
