@@ -1,24 +1,38 @@
-// function renderItem (data) {
-//   $("#read-container").append(`<li> ${data}</li>`)
-// }
+function loadItems(callback) { //$jquery/ ajax request to load new tweets onto page and add tweets to database
+  $.ajax({
+    method: 'GET',
+    url: '/get-item',
+    data: JSON,
+    success: callback
+  })
+};
 
-// function loadItems(callback) { //$jquery/ ajax request to load new tweets onto page and add tweets to database
-//   $.ajax({
-//     type: "GET",
-//     url: "/get-item",
-//     success: callback
-//   })
-// };
-//  // success: loadItems.bind(null, function (response) {
-        //   // const lastItem = response[response.length - 1];
-//         //   renderItem(`${input}`);
+loadItems(function (response) {
+  response.forEach((item) => renderItems(item))
+});
 
-// loadItems(function (response) {
-//   response.forEach((item) => renderItem(item))
-// });
+function renderItems(item) {
+    if (item.category_id === 1){
+        $('.read-container').append(`<ul> <li>${item.user_description}</li></ul>`)
+      } 
+          else if (item.category_id === 2){
 
+            $('.watch-container').append(`<ul> <li>${item.user_description}</li></ul>`)
+     } 
+          else if (item.category_id === 3){
+
+            $('.buy-container').append(`<ul> <li>${item.user_description}</li></ul>`)
+         } 
+         else if (item.category_id === 4){
+          $('.eat-container').append(`<ul> <li>${item.user_description}</li></ul>`)
+       }
+         else if (item.category_id === 5){
+          $('.other-container').append(`<ul> <li>${item.user_description}</li></ul>`)
+         }
+}
 
 $(document).ready(function() {
+  var input;
   $('#logout-button').on('submit',function (ev) {
   ev.preventDefault();
       $.ajax({
@@ -34,19 +48,10 @@ $(document).ready(function() {
         url: '/update'
       });
   });
-
-  $('input:checkbox').on('change', function () {
-        var input = $(this).next('li');
-        if (this.checked) {
-            $(input).css('textDecoration', 'line-through');
-        } else {
-            $(input).css('textDecoration', 'none');
-        }
-    });
-
+  
   $('#form').on('submit',function (ev) {
     ev.preventDefault();
-    var input = $('input.search-bar').val();
+      input = $('input.search-bar').val();
     $('#form input').val('');
         $.ajax({
           method: 'POST',
@@ -56,43 +61,85 @@ $(document).ready(function() {
             console.log(response);
           }
          })
-
-
+     
          $.ajax({
         method: 'GET',
         url: '/get-item',
         data: JSON,
-        success: function (response){
-          for (let i in response){
-
-            if (response[i].api_response === "books"){
-              $("#read-container").append(`<ul> <li> ${input}</li>`)
-            }
-                else if (response[i].api_response === "films"){
-                  
-              console.log('I got a movie')
-           }
-                else if (response[i].api_response === "restaurants"){
-                  $("#eat-container").append(`<ul> <li> ${input}</li>`)
-                  console.log('I got a resto')
-               }
-                else if (response[i].api_response === "products"){
-              // $("#read-container").append(`<div> ${input}</div>`)
-              console.log('I got a thhingh')
-               }
-               else if (response[i].api_response === "other"){
-              // $("#read-container").append(`<div> ${input}</div>`)
-              console.log('I got a other')
-               }
-              }
-          }
+        success:  loadItems.bind(null, function (response) {
+          console.log(response);
+          const lastItem = response[response.length - 1];
+          renderItems(lastItem);
         })
+        
       })
-    })
-  // $('#form').on('submit',function (ev) {
+    });
+  })  
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        //function (response){
+        //    input = $('#form input.search-bar').val();
+        //   for (let i in response){
+           
+        //     switch (response[i].category_id){
+        //       case 1: 
+        //       $('.read-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
+        //     break;
+
+        //     case 2:
+        //         $('.watch-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
+        //           break;
+
+        //           case 3:
+        //           $('.buy-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
+        //           break;
+                  
+        //           case 4:
+        //         $('.eat-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
+                
+        //           break;
+                 
+        //           case 5:
+        //         $('.other-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
+        //           break;
+        //     }
+           
+        //   }
+        // }
+     
+            // console.log(response[i].category_id)
+          //   if (response[i].category_id === 1){
+          //     $('.read-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
+          //   } 
+          //       else if (response[i].category_id === 2){
+
+          //         $('.watch-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
+          //  } 
+          //       else if (response[i].category_id === 3){
+          //         $('.eat-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
+          //      }
+          //       else if (response[i].category_id === 4){
+
+          //         $('.buy-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
+          //      } 
+          //      else if (response[i].category_id === 5){
+          //       $('.other-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
+          //      }
+          //     }
+  //         }
+  //       })
+  //     })
+  //   })
+  // // $('#form').on('submit',function (ev) {
   //   ev.preventDefault();
   //   var input = $('#form input').val();
   //   let newItem = $(`<div> ${input} </div>`)
   //   $('').preppend(newItem);
-  // })
-
+  

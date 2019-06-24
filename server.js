@@ -40,7 +40,7 @@ app.use(cookieSession({
   name: "session",
   keys: ["key1", "key2"],
 
-  maxAge: 24 * 60 * 60 * 1000
+  maxAge: 24 * 1000 * 1000 * 1000
 }));
 
 
@@ -187,7 +187,7 @@ app.post("/add-item", (req, res) => {
 
   const apiUrl = `api.wolframalpha.com/v2/query?${query}`
 
-  request( `https://api.wolframalpha.com/v2/query?${query}` , function (error, response, body) {
+  request( `https://api.wolframalpha.com/v2/query?${query}`, function (error, response, body) {
       if (error) {
           console.log("error occured", error);
       }
@@ -197,9 +197,9 @@ app.post("/add-item", (req, res) => {
           let print = data.queryresult.datatypes;
           let splitPrint =  print.split(",");
           // console.log(splitPrint)
-          if (splitPrint.includes('Book')) {
+          if (splitPrint.includes('Book')){
             return knex('list_items')
-            .insert({user_description: req.body.input, api_response: 'books', category_id: '1', list_id: '1', user_id: req.session.user_id})
+            .insert({user_description: req.body.input, api_response: 'books', category_id: '1', user_id: req.session.user_id})
             .then(()=>{
               console.log('inserted into: books')
               res.status(200).send('got it')
@@ -250,10 +250,11 @@ app.post("/add-item", (req, res) => {
         }   
       })
 });
+
 app.get("/get-item", (req, res) => {
   console.log(req.session.user_id)
   if (req.session.user_id !== undefined && req.session.user_id !== null) {
-    knex.select('api_response', 'list_items.id', 'category_id', 'user_id')
+    knex.select('api_response','user_description', 'list_items.id', 'category_id', 'user_id')
       .from('list_items')
       .innerJoin('users', 'list_items.user_id', 'users.id')
       .where('user_id', req.session.user_id)

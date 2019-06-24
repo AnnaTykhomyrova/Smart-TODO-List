@@ -31,100 +31,27 @@
         <button id="add-item" class="btn btn-outline-dark btn md" type="submit">Add</button>
       </form>
   </div>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm">
-         <div class="card" style="width: 14rem;">
-          <div>
-            <img src="categoryImages/READ.jpg" class="card-img-top" alt="Snoop Dogg reads">
-          </div>
-            <div class="card-body">
-              <h5 class="card-title text-center">To Read</h5>
-            </div>
-            <ul class="list-group list-group-flush">
-              <div id="read" class="list-group-item">
-                <input type="checkbox">
-                <li>Example</li>
-                <form method="POST" action="">
-                  <button type='submit'>Change a category</button>
-                </form>
-              </div>
-            </ul>
-          </div>
-        </div>
-
-        <div class="col-sm">
-         <div class="card" style="width: 14rem;">
-            <img src="categoryImages/WATCH.jpg" class="card-img-top" alt="Snoop Dogg watches">
-            <div class="card-body">
-              <h5 class="card-title text-center">To Watch</h5>
-            </div>
-            <ul class="list-group list-group-flush">
-              <div id="watch" class="list-group-item">
-                <input type="checkbox">
-                <li>Example</li>
-                <form method="POST" action="">
-                  <button type='submit'>Change a category</button>
-                </form>
-              </div>
-            </ul>
-          </div>
-        </div>
-
-        <div class="col-sm">
-         <div class="card" style="width: 14rem;">
-            <img src="categoryImages/EAT.jpg" class="card-img-top" alt="Snoop Dogg eats">
-            <div class="card-body">
-              <h5 class="card-title text-center">To Eat</h5>
-            </div>
-            <ul class="list-group list-group-flush">
-              <div id="eat" class="list-group-item">
-                <input type="checkbox">
-                <li>Example</li>
-                <form method="POST" action="">
-                  <button type='submit'>Change a category</button>
-                </form>
-              </div>
-            </ul>
-          </div>
-        </div>
-
-        <div class="col-sm">
-         <div class="card" style="width: 14rem;">
-            <img src="categoryImages/PRODUCT.jpg" class="card-img-top" alt="Buy products with Snoop Dogg">
-            <div class="card-body">
-              <h5 class="card-title text-center">To Buy</h5>
-            </div>
-            <ul class="list-group list-group-flush">
-              <div id="buy" class="list-group-item">
-                <input type="checkbox">
-                <li>Example</li>
-                <form method="POST" action="">
-                  <button type='submit'>Change a category</button>
-                </form>
-              </div>
-            </ul>
-          </div>
-        </div>
-
-        <div class="col-sm">
-         <div class="card" style="width: 14rem;">
-            <img src="categoryImages/OTHERS.jpg" class="card-img-top" alt="Snoop Dogg doesn't know the category">
-            <div class="card-body">
-              <h5 class="card-title text-center">Other</h5>
-            </div>
-            <ul class="list-group list-group-flush">
-              <div id="other" class="list-group-item">
-                <input type="checkbox">
-                <li>Example</li>
-                <form method="POST" action="">
-                  <button type='submit'>Change a category</button>
-                </form>
-              </div>
-            </ul>
-          </div>
-        </div>
-      </div>
+  <div class="categories">
+    <div class="read-container">
+      <h3>To Read</h3>
+      <div class="read"></div>
     </div>
+    <div class="watch-container">
+      <h3>To Watch</h3>
+      <div class="watch"></div>
+    </div>
+    <div class="eat-container">
+      <h3>To Eat</h3>
+      <div class="eat"></div>
+    </div>
+    <div class="buy-container">
+      <h3>To Buy</h3>
+      <div class="buy"></div>
+    </div>
+    <div class="other-container">
+      <h3>Other</h3>
+      <div class="other"></div>
+    </div>
+  </div>
   </body>
 </html>
