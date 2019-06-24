@@ -1,5 +1,5 @@
-function renderItem(data) {
-  $("#read-container").append(data)
+function renderItem (data) {
+  $("#read-container").append(`<li> ${data} </li>`)
 }
 
 function loadItems(callback) { //$jquery/ ajax request to load new tweets onto page and add tweets to database
@@ -44,7 +44,7 @@ $('button#add-item').on('click',function (ev) {
         data: {input},
         success: loadItems.bind(null, function (response) {
           const lastItem = response[response.length - 1];
-          renderItem(lastItem);
+          renderItem(`${input}`);
       })
   });
   // $('#form').on('submit',function (ev) {
