@@ -175,7 +175,19 @@ app.post('/update/password', (req, res) => {
     });
 });
 
-let apiCategory;
+app.post("/get-item", (req, res) => {
+  if (req.session.id !== undefined && req.session.id !== null) {
+    knex
+      .select('list_items.id', 'list_items.api_response', 'list_items.category_id', 'list_items.list_id')
+      .from('list_items')
+      .innerJoin('users', 'items.user_id', 'users.id')
+      .where('user_id', req.session.id)
+      .then(results => {
+        res.json(results);
+        console.log(results);
+      });
+  }
+});
 
 app.post("/add-item", (req, res) => {
   let templateVars = {
@@ -200,8 +212,6 @@ app.post("/add-item", (req, res) => {
           let splitPrint =  print.split(",");
           // console.log(splitPrint)
 
-          if (splitPrint.includes('Book')) {
-            apiCategory = 'books';
             return knex('list_items')
             .insert({user_description: req.body.input, api_response: 'books', category_id: '1'})
             .then(()=>{
@@ -211,7 +221,6 @@ app.post("/add-item", (req, res) => {
             })
           }
           else if (splitPrint.includes('Movie') || splitPrint.includes('TelevisionProgram')) {
-            apiCategory = 'films';
             return knex('list_items')
             .insert({user_description: req.body.input, api_response: 'films', category_id: '2'})
             .then(()=>{
@@ -221,7 +230,6 @@ app.post("/add-item", (req, res) => {
             })
           }
           else if (splitPrint.includes('ConsumerProductsPTE')) {
-            apiCategory = 'products';
             return knex('list_items')
             .insert({user_description: req.body.input, api_response: 'products', category_id: '3'})
             .then(()=>{
@@ -231,7 +239,6 @@ app.post("/add-item", (req, res) => {
             })
           }
           else if (splitPrint.includes('RetailLocation')) {
-            apiCategory = 'restaurants';
             return knex('list_items')
             .insert({user_description: req.body.input, api_response: 'restaurants', category_id: '4'})
             .then(()=>{
@@ -250,23 +257,8 @@ app.post("/add-item", (req, res) => {
               if (err) throw error;
             });
           }
-        }
-        res.render('home_page', templateVars);
-    });
-  })
-
-  app.get("/get-items", (req, res) => {
-    if (req.session.id !== undefined && req.session.id !== null) {
-      knex
-        .select('list_items.id', 'list_items.api_response', 'list_items.category_id', 'list_items.list_id')
-        .from('list_items')
-        .innerJoin('users', 'items.user_id', 'users.id')
-        .where('user_id', req.session.id)
-        .then(results => {
-          res.json(results);
-        });
-    }
-});
+        })
+      })
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
