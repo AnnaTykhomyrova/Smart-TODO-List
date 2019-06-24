@@ -43,7 +43,7 @@ $('button#add-item').on('click',function (ev) {
         url: '/add-item',
         data: {input},
         success: loadItems.bind(null, function (response) {
-          const lastItem = response[response.length - 1];
+          // const lastItem = response[response.length - 1];
           renderItem(`${input}`);
       })
   });

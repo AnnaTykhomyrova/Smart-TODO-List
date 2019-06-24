@@ -6,6 +6,7 @@ exports.up = function(knex, Promise) {
         table.string('api_response');
         table.integer('category_id').references('id').inTable('categories');
         table.integer('list_id').references('id').inTable('users_lists');
+        table.integer('user_id').references('id').inTable('users');
       })
     ])
   };
