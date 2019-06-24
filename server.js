@@ -40,7 +40,7 @@ app.use(cookieSession({
   name: "session",
   keys: ["key1", "key2"],
 
-  maxAge: 24 * 60 * 60 * 1000
+  maxAge: 24 * 1000 * 1000 * 1000
 }));
 
 
@@ -197,7 +197,7 @@ app.post("/add-item", (req, res) => {
           let print = data.queryresult.datatypes;
           let splitPrint =  print.split(",");
           // console.log(splitPrint)
-          if (splitPrint.includes('Book') || splitPrint.includes('Novel')) {
+          if (splitPrint.includes('Book')){
             return knex('list_items')
             .insert({user_description: req.body.input, api_response: 'books', category_id: '1', user_id: req.session.user_id})
             .then(()=>{
