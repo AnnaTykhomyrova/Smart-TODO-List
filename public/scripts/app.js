@@ -44,7 +44,24 @@ $(document).ready(function() {
           url: '/add-item',
           data: {input},
           success: function(response) {
-            console.log(response);
+            for (let i in response){
+              if (response[i] === "books"){
+                $("#read-container").append(`<li> ${input}</li>`)
+                // }
+              } else if (response[i] === "films"){
+                $("#read-container").append(`<li> ${input}</li>`)
+                // }
+              } else if (response[i] === "restaurants"){
+                $("#read-container").append(`<li> ${input}</li>`)
+                // }
+              } else if (response[i] === "products"){
+                $("#read-container").append(`<li> ${input}</li>`)
+                // }
+              } else if (response[i] === "other"){
+                $("#read-container").append(`<li> ${input}</li>`)
+                // }
+              } 
+            }
           }
          })
      $.ajax({
