@@ -253,7 +253,7 @@ app.post("/add-item", (req, res) => {
 app.get("/get-item", (req, res) => {
   console.log(req.session.user_id)
   if (req.session.user_id !== undefined && req.session.user_id !== null) {
-    knex.select('api_response', 'list_items.id', 'category_id', 'user_id')
+    knex.select('api_response','user_description', 'list_items.id', 'category_id', 'user_id')
       .from('list_items')
       .innerJoin('users', 'list_items.user_id', 'users.id')
       .where('user_id', req.session.user_id)

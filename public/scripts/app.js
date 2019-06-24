@@ -19,6 +19,7 @@
 
 
 $(document).ready(function() {
+  var input;
   $('#logout-button').on('submit',function (ev) {
   ev.preventDefault();
       $.ajax({
@@ -37,7 +38,7 @@ $(document).ready(function() {
   
   $('#form').on('submit',function (ev) {
     ev.preventDefault();
-    var input = $('input.search-bar').val();
+      input = $('input.search-bar').val();
     $('#form input').val('');
         $.ajax({
           method: 'POST',
@@ -53,36 +54,63 @@ $(document).ready(function() {
         url: '/get-item',
         data: JSON,
         success: function (response){
+           input = $('#form input.search-bar').val();
           for (let i in response){
-            console.log(response[i].api_response)
-            if (response[i].api_response === "books"){
-              console.log('I got a book')
-              // $("#read-container").append(`<div> ${input}</div>`)
-            } 
-                else if (response[i].api_response === "films"){
-              // $("#read-container").append(`<div> ${input}</div>`)
-              console.log('I got a movie')
-           } 
-                else if (response[i].api_response === "restaurants"){
-                  // $("#read-container").append(`<div> ${input}</div>`)
-                  console.log('I got a resto')
-               }
-                else if (response[i].api_response === "products"){
-              // $("#read-container").append(`<div> ${input}</div>`)
-              console.log('I got a thhingh')
-               } 
-               else if (response[i].api_response === "other"){
-              // $("#read-container").append(`<div> ${input}</div>`)
-              console.log('I got a other')
-               }
-              }
+           
+            switch (response[i].category_id){
+              case 1: 
+              $('.read-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
+            break;
+
+            case 2:
+                $('.watch-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
+                  break;
+
+                  case 3:
+                  $('.buy-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
+                  break;
+                  
+                  case 4:
+                $('.eat-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
+                
+                  break;
+                 
+                  case 5:
+                $('.other-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
+                  break;
+            }
+           
           }
-        })
+        }
       })
-    })
-  // $('#form').on('submit',function (ev) {
+    });
+  })
+            // console.log(response[i].category_id)
+          //   if (response[i].category_id === 1){
+          //     $('.read-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
+          //   } 
+          //       else if (response[i].category_id === 2){
+
+          //         $('.watch-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
+          //  } 
+          //       else if (response[i].category_id === 3){
+          //         $('.eat-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
+          //      }
+          //       else if (response[i].category_id === 4){
+
+          //         $('.buy-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
+          //      } 
+          //      else if (response[i].category_id === 5){
+          //       $('.other-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
+          //      }
+          //     }
+  //         }
+  //       })
+  //     })
+  //   })
+  // // $('#form').on('submit',function (ev) {
   //   ev.preventDefault();
   //   var input = $('#form input').val();
   //   let newItem = $(`<div> ${input} </div>`)
   //   $('').preppend(newItem);
-  // })
+  
