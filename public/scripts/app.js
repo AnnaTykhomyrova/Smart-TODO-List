@@ -54,20 +54,26 @@ $(document).ready(function() {
         data: JSON,
         success: function (response){
           for (let i in response){
+            console.log(response[i].api_response)
             if (response[i].api_response === "books"){
-              $("#read-container").append(`<li> ${input}</li>`)
+              console.log('I got a book')
+              // $("#read-container").append(`<div> ${input}</div>`)
             } 
                 else if (response[i].api_response === "films"){
-              $("#read-container").append(`<li> ${input}</li>`)
+              // $("#read-container").append(`<div> ${input}</div>`)
+              console.log('I got a movie')
            } 
                 else if (response[i].api_response === "restaurants"){
-                  $("#read-container").append(`<li> ${input}</li>`)
+                  // $("#read-container").append(`<div> ${input}</div>`)
+                  console.log('I got a resto')
                }
                 else if (response[i].api_response === "products"){
-              $("#read-container").append(`<li> ${input}</li>`)
+              // $("#read-container").append(`<div> ${input}</div>`)
+              console.log('I got a thhingh')
                } 
                else if (response[i].api_response === "other"){
-              $("#read-container").append(`<li> ${input}</li>`)
+              // $("#read-container").append(`<div> ${input}</div>`)
+              console.log('I got a other')
                }
               }
           }
