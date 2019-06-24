@@ -1,22 +1,35 @@
-// function renderItem (data) {
-//   $("#read-container").append(`<li> ${data}</li>`)
-// }
+function loadItems(callback) { //$jquery/ ajax request to load new tweets onto page and add tweets to database
+  $.ajax({
+    method: 'GET',
+    url: '/get-item',
+    data: JSON,
+    success: callback
+  })
+};
 
-// function loadItems(callback) { //$jquery/ ajax request to load new tweets onto page and add tweets to database
-//   $.ajax({
-//     type: "GET",
-//     url: "/get-item",
-//     success: callback
-//   })
-// };
-//  // success: loadItems.bind(null, function (response) {
-        //   // const lastItem = response[response.length - 1];
-//         //   renderItem(`${input}`);
+loadItems(function (response) {
+  response.forEach((item) => renderItems(item))
+});
 
-// loadItems(function (response) {
-//   response.forEach((item) => renderItem(item))
-// });
+function renderItems(item) {
+    if (item.category_id === 1){
+        $('.read-container').append(`<ul> <li>${item.user_description}</li></ul>`)
+      } 
+          else if (item.category_id === 2){
 
+            $('.watch-container').append(`<ul> <li>${item.user_description}</li></ul>`)
+     } 
+          else if (item.category_id === 3){
+
+            $('.buy-container').append(`<ul> <li>${item.user_description}</li></ul>`)
+         } 
+         else if (item.category_id === 4){
+          $('.eat-container').append(`<ul> <li>${item.user_description}</li></ul>`)
+       }
+         else if (item.category_id === 5){
+          $('.other-container').append(`<ul> <li>${item.user_description}</li></ul>`)
+         }
+}
 
 $(document).ready(function() {
   var input;
@@ -53,35 +66,51 @@ $(document).ready(function() {
         method: 'GET',
         url: '/get-item',
         data: JSON,
-        success: function (response){
-           input = $('#form input.search-bar').val();
-          for (let i in response){
+        success:  loadItems.bind(null, function (response) {
+          console.log(response);
+          const lastItem = response[response.length - 1];
+          renderItems(lastItem);
+        })
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        //function (response){
+        //    input = $('#form input.search-bar').val();
+        //   for (let i in response){
            
-            switch (response[i].category_id){
-              case 1: 
-              $('.read-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
-            break;
+        //     switch (response[i].category_id){
+        //       case 1: 
+        //       $('.read-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
+        //     break;
 
-            case 2:
-                $('.watch-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
-                  break;
+        //     case 2:
+        //         $('.watch-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
+        //           break;
 
-                  case 3:
-                  $('.buy-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
-                  break;
+        //           case 3:
+        //           $('.buy-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
+        //           break;
                   
-                  case 4:
-                $('.eat-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
+        //           case 4:
+        //         $('.eat-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
                 
-                  break;
+        //           break;
                  
-                  case 5:
-                $('.other-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
-                  break;
-            }
+        //           case 5:
+        //         $('.other-container').append(`<ul> <li>${response[i].user_description}</li></ul>`)
+        //           break;
+        //     }
            
-          }
-        }
+        //   }
+        // }
       })
     });
   })
