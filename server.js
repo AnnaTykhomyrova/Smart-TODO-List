@@ -13,6 +13,8 @@ const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
+const request     = require( 'request' );
+const qs          = require('querystring');
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -78,9 +80,103 @@ app.get('/update', (req, res) => {
 });
 
 
-app.post('/add-item', (req, res) => {
-  res.redirect('/');
+// app.post('/add-item', (req, res) => {
+//   res.redirect('/');
+// });
+
+//for api call
+app.post("/add-item", (req, res) => {
+
+  let templateVars = {
+    username: req.session.username  
+  };
+
+  let searchbarText = req.body.input;
+
+  const query = qs.stringify({ appid: 'X57U54-RPHVX5VRH3', input: `${searchbarText}`, output: 'json' })
+  // api.wolframalpha.com/v2/query?appid=X57U54-RPHVX5VRH3&input=harry%20potter&output=json
+
+  const apiUrl = `api.wolframalpha.com/v2/query?${query}`
+
+  request( `https://api.wolframalpha.com/v2/query?${query}` , function (error, response, body) {
+      if (error) {
+          console.log("error occured", error);
+      }
+      else if (response.statusCode === 200) {
+          //get (body);
+          var data = JSON.parse (body); 
+          let print = data.queryresult.datatypes;
+          let splitPrint =  print.split(",");
+          // console.log(splitPrint)
+
+          if (splitPrint.includes('Book')) {
+            queryId.push(1);
+            console.log(queryId);
+            return knex('list_items')
+            .insert({user_description: req.body.input, api_response: 'books', category_id: '1'})
+            .then(()=>{
+              console.log('inserted into: books')
+            }).catch((err)=>{
+              if (err) throw error;
+            })
+          }
+          else if (splitPrint.includes('Movie') || splitPrint.includes('TelevisionProgram')) {
+            return knex('list_items')
+            .insert({user_description: req.body.input, api_response: 'films', category_id: '2'})
+            .then(()=>{
+              console.log('inserted into: films')
+            }).catch((err)=>{
+              if (err) throw error;
+            })
+          }
+          else if (splitPrint.includes('ConsumerProductsPTE')) {
+            return knex('list_items')
+            .insert({user_description: req.body.input, api_response: 'products', category_id: '3'})
+            .then(()=>{
+              console.log('inserted into: products')
+            }).catch((err)=>{
+              if (err) throw error;
+            })
+          }
+          else if (splitPrint.includes('RetailLocation')) {
+            return knex('list_items')
+            .insert({user_description: req.body.input, api_response: 'restaurants', category_id: '4'})
+            .then(()=>{
+              console.log('inserted into: restaurants')
+            }).catch((err)=>{
+              if (err) throw error;
+            })
+          }
+          else {
+            return knex('list_items')
+            .insert({user_description: req.body.input, api_response: 'other', category_id: '5'})
+            .then(()=>{
+              console.log('inserted into: other')
+            }).catch((err)=>{
+              if (err) throw error;
+            });
+          }
+        }
+        res.render('home_page', templateVars);
+    });
+  })
+// Json word notation
+
+// Restraunts & cafes = RetailLocation;
+// products = ConsumerProductsPTE;
+// books = Book;
+// movie = Movie;
+app.get("/get-items", (res, req)=>{
+  knex
+  .select()
+  .from('list_items')
+  .then(response =>{
+    console.log(response)
+  })
 });
+
+
+
 
 
 app.get("/login", (req, res) => {
@@ -169,5 +265,6 @@ app.post ("/register", (req, res)  => {
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
+
 
 
