@@ -14,9 +14,9 @@
       <button type="submit" id='home-button' class="btn btn-dark btn md">Go to home page</button>
     </form>
     <div class="forms-container">
-      <form method="POST" action="/change-category">
-        <label>Current category: <%= category %></label>
-        <input id="change-category" type="text" placeholder="Change category"  name="change-category" value="<%= category %>">
+      <form method="GET" action="/change-category">
+        <label>Current category: </label>
+        <input id="change-category" type="text" placeholder="Change category"  name="change-category" value="">
         <button id="save" class="btn-outline-dark btn-md">Save</button>
         </input>
       </form>

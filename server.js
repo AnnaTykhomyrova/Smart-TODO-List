@@ -264,8 +264,18 @@ app.get("/get-item", (req, res) => {
   }
 });
 
+
 app.get('/change-category', (req, res) => {
-  res.render('change_category')
+  // const newCategory = req.body['change-category'];
+  // knex('categories')
+  //   .where('id', req.session.user_id)
+  //   .update({
+  //     category: newCategory
+  //   })
+  //   .then(() => {
+  //     req.session.category = newCategory;
+      res.render('change_category')
+    // });
 });
 
 
