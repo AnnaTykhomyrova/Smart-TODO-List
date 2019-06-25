@@ -7,10 +7,55 @@ $button-box-shadow:-11px 12px 20px 0px rgba(0, 0, 0, 0.2);
   margin-top: 12em;
 }
 
+.delete-forms {
+  line-height: 26px;
+}
+
+.change-category-forms {
+  line-height: 13px;
+  font-size: 14px;
+
+  button {
+      width: 77px;
+  }
+}
+
+ul {
+  padding-inline-start: 0;
+}
+
+.forms-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+   button {
+    border-radius: 5px;
+
+    &:hover {
+      cursor: pointer;
+      border-color: purple;
+    }
+  }
+}
+
+.card-body {
+  border-bottom: solid 1px purple;
+}
+
+.card {
+  border-radius: 10px;
+  overflow: auto;
+  border-color: purple;
+
+    img {
+      border-bottom: solid 1px purple;
+  }
+}
 
 li {
   list-style: none;
-  display: inline-block;
+  text-align: center;
 }
 
 .user-list {
