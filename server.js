@@ -177,7 +177,7 @@ app.post('/update/password', (req, res) => {
 
 app.post("/add-item", (req, res) => {
   let templateVars = {
-    username: req.session.username  
+    username: req.session.username
   };
 
   let searchbarText = req.body.input;
@@ -193,7 +193,7 @@ app.post("/add-item", (req, res) => {
       }
       else if (response.statusCode === 200) {
           //get (body);
-          var data = JSON.parse (body); 
+          var data = JSON.parse (body);
           let print = data.queryresult.datatypes;
           let splitPrint =  print.split(",");
           // console.log(splitPrint)
@@ -247,7 +247,7 @@ app.post("/add-item", (req, res) => {
               if (err) throw error;
             });
           }
-        }   
+        }
       })
 });
 
@@ -263,6 +263,22 @@ app.get("/get-item", (req, res) => {
       });
   }
 });
+
+
+app.get('/change-category', (req, res) => {
+  // const newCategory = req.body['change-category'];
+  // knex('categories')
+  //   .where('id', req.session.user_id)
+  //   .update({
+  //     category: newCategory
+  //   })
+  //   .then(() => {
+  //     req.session.category = newCategory;
+      res.render('change_category')
+    // });
+});
+
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
