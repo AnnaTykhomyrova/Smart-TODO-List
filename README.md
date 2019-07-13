@@ -1,7 +1,7 @@
 # Smart TODO list
 
 It's a midterm group project in [Lighthouse Labs](https://www.lighthouselabs.ca/). 
-This project was created by [Anna Tykhomyrova](https://github.com/AnnaTykhomyrova), [Aidan Chase](https://github.com/Aidanchase) and [Vishnu Chennuru](https://github.com/vishnuchen) in 5 days. We have used Knex, Wolfram Alpha API and PostgreSQL.
+This project was created by [me](https://github.com/AnnaTykhomyrova), [Aidan Chase](https://github.com/Aidanchase) and [Vishnu Chennuru](https://github.com/vishnuchen) in 5 days. We have used Knex, Wolfram Alpha API and PostgreSQL.
 
 ## Description 
 
