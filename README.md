@@ -1,7 +1,7 @@
 # Smart TODO list
 
 It's a midterm group project in [Lighthouse Labs](https://www.lighthouselabs.ca/). 
-This project was created by [me](https://github.com/AnnaTykhomyrova), [Aidan Chase](https://github.com/Aidanchase) and [Vishnu Chennuru](https://github.com/vishnuchen) in 5 days. We have used Knex, Wolfram Alpha API and PostgreSQL.
+This project was created by [Anna Tykhomyrova](https://github.com/AnnaTykhomyrova), [Aidan Chase](https://github.com/Aidanchase) and [Vishnu Chennuru](https://github.com/vishnuchen) in 5 days. We have used Knex, Wolfram Alpha API and PostgreSQL.
 
 ## Description 
 
@@ -10,12 +10,16 @@ When you are recommended something it's not always easy to jot it down for later
 The solution? A smart, auto-categorizing todo list app. The user simply has to add the name of the thing, and it gets put into the correct list.
 
 ## Final product
-
-!["Screenshot of ."]()
-!["Screenshot of ."]()
-!["Screenshot of ."]()
-!["Screenshot of ."]()
-!["Screenshot of ."]()
+Sign up page
+!["Screenshot of signup page."](https://github.com/Aidanchase/todizzle/blob/master/docks/signup-page.png)
+Login page
+!["Screenshot of login page."](https://github.com/Aidanchase/todizzle/blob/master/docks/login-page.png)
+Logged in user page
+!["Screenshot of logged in user page."](https://github.com/Aidanchase/todizzle/blob/master/docks/logged-in-user-page.png)
+Update user account page
+!["Screenshot of update user account page."](https://github.com/Aidanchase/todizzle/blob/master/docks/update-user-account-page.png)
+Logged in user auto categorizing page
+!["Screenshot of logged in user auto categorizing page."](https://github.com/Aidanchase/todizzle/blob/master/docks/logged-in-user-auto-categorizing-page.png)
 
 ## Getting Started
 
